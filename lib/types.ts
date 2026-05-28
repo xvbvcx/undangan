@@ -2,6 +2,46 @@ export type TemplateTier = "free" | "premium";
 
 export type TemplateAnimation = "soft" | "cinematic" | "editorial" | "royal";
 
+// Distinct visual layout structure. Each maps to its own renderer component
+// in components/renderers/. Adding a new layout = build a new renderer and
+// add the slug here.
+export type TemplateLayout =
+  | "classic"
+  | "floral"
+  | "minimal"
+  | "royal"
+  | "cinematic"
+  | "editorial"
+  | "botanical"
+  | "luxury";
+
+// Display font bound to a template — controls the hero/heading typography.
+export type TemplateFontFamily =
+  | "cormorant"
+  | "playfair"
+  | "cinzel"
+  | "italiana"
+  | "bodoni"
+  | "dancing";
+
+// Cover gate style. Affects what the user sees before clicking "Buka Undangan".
+export type TemplateCoverStyle =
+  | "minimal"      // simple centered card
+  | "ornament"     // ornament frame + names
+  | "photo"        // full-bleed photo background
+  | "split"        // split column with photo + names
+  | "arch";        // arched window over background
+
+// Ornament SVG style placed in corners / dividers of the invitation.
+export type TemplateOrnament =
+  | "rose"
+  | "leaves"
+  | "geometric"
+  | "deco-frame"
+  | "arch-frame"
+  | "stars"
+  | "wave";
+
 export type TemplateMeta = {
   slug: string;
   name: string;
@@ -13,6 +53,13 @@ export type TemplateMeta = {
   animation: TemplateAnimation;
   accent: string;
   features: string[];
+  layout: TemplateLayout;
+  fontFamily: TemplateFontFamily;
+  coverStyle: TemplateCoverStyle;
+  ornament: TemplateOrnament;
+  // Default backsound URL (relative to /public or absolute https). Admin can
+  // override in the `template_music` table without touching code.
+  music: string | null;
 };
 
 export type InvitationData = {
@@ -42,8 +89,11 @@ export type InvitationData = {
   giftAccount: string;
   giftName: string;
   giftQris: string;
-  musicUrl: string;
   themeColor: string;
+  // Legacy field — kept optional for backward compatibility with rows created
+  // before music management moved into the admin panel. Not exposed in the
+  // builder anymore.
+  musicUrl?: string;
 };
 
 export type PaymentStatus = "not_required" | "pending" | "paid" | "failed" | "expired";
@@ -116,6 +166,14 @@ export type GuestbookRecord = {
   created_at: string;
 };
 
+export type TemplateMusicRecord = {
+  id: string;
+  template_slug: string;
+  music_url: string;
+  label: string | null;
+  updated_at: string;
+};
+
 export const emptyInvitationData: InvitationData = {
   groomName: "",
   groomNickname: "",
@@ -143,6 +201,5 @@ export const emptyInvitationData: InvitationData = {
   giftAccount: "",
   giftName: "",
   giftQris: "",
-  musicUrl: "/audio/soft-wedding-chime.wav",
   themeColor: "gold"
 };

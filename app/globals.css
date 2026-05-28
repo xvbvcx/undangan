@@ -374,3 +374,321 @@ th { color: var(--text); }
   .music-toggle { width: 46px; height: 46px; }
   .countdown-slot strong { font-size: 24px; }
 }
+
+
+/* =========================================================
+ * v2 Layout System
+ * Each invitation page is wrapped in `.invite-page.layout-<id>` and gets
+ * its own typography + section treatment.
+ * ========================================================= */
+
+.font-cormorant .layout-display { font-family: var(--font-cormorant), Georgia, serif; font-weight: 500; }
+.font-playfair  .layout-display { font-family: var(--font-playfair), Georgia, serif; font-weight: 600; }
+.font-cinzel    .layout-display { font-family: var(--font-cinzel), Georgia, serif; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.font-italiana  .layout-display { font-family: var(--font-italiana), Georgia, serif; font-weight: 400; letter-spacing: .04em; }
+.font-bodoni    .layout-display { font-family: var(--font-bodoni), Georgia, serif; font-weight: 600; }
+.font-dancing   .layout-display { font-family: var(--font-dancing), "Brush Script MT", cursive; font-weight: 600; }
+
+/* Default invite-page text/font tweaks shared by all layouts. */
+.invite-page .layout-display { line-height: .92; letter-spacing: -.02em; color: var(--gold-2); }
+.invite-page .opening-text { max-width: 720px; margin: 12px auto 0; color: rgba(255,248,236,.78); line-height: 1.85; }
+.invite-page .person-label { color: var(--muted); letter-spacing: .22em; text-transform: uppercase; font-size: 11px; }
+.invite-page .section-title { margin: 8px 0 22px; font-size: clamp(40px, 7vw, 78px); }
+.invite-page .hero-quote { max-width: 640px; margin: 18px auto; color: rgba(255,248,236,.74); line-height: 1.9; font-style: italic; }
+.invite-page .story-text { max-width: 720px; margin: 12px auto 0; color: rgba(255,248,236,.78); line-height: 1.95; }
+.section-divider { display: flex; align-items: center; gap: 14px; max-width: 480px; margin: 0 auto; color: var(--invite-accent); }
+.section-divider span { flex: 1; height: 1px; background: currentColor; opacity: .35; }
+
+/* =========================================================
+ * Layout: Classic — centered romantic
+ * ========================================================= */
+.layout-classic .gate-card { background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(0,0,0,.55)); border-color: rgba(244,219,157,.34); }
+.layout-classic .gate-card .layout-display { font-size: clamp(58px, 14vw, 110px); margin: 12px 0; color: var(--invite-accent); }
+.layout-classic .gate-card .layout-display small { display: block; font-style: italic; font-size: .35em; color: rgba(255,248,236,.6); margin: 8px 0; letter-spacing: .12em; }
+.layout-classic .classic-monogram { display: flex; align-items: center; gap: 12px; color: var(--invite-accent); font-family: var(--font-cormorant), Georgia, serif; }
+.layout-classic .classic-monogram strong { font-size: 60px; line-height: 1; }
+.layout-classic .classic-monogram em { font-style: italic; font-size: 36px; opacity: .6; }
+.layout-classic .gate-orn { color: var(--invite-accent); }
+.layout-classic .gate-orn-top { transform: translateY(-6px); margin-bottom: 18px; }
+.layout-classic .gate-orn-bottom { transform: rotate(180deg); margin-top: 18px; }
+.layout-classic .hero-classic { padding-top: 110px; padding-bottom: 110px; }
+.layout-classic .hero-orn { color: var(--invite-accent); margin: 22px auto; opacity: .85; }
+.layout-classic .hero-orn-bottom { transform: rotate(180deg); }
+.layout-classic .hero-classic h1 { font-size: clamp(60px, 12vw, 132px); }
+.layout-classic .hero-classic .amp { font-style: italic; font-weight: 300; opacity: .65; }
+.layout-classic .classic-amp { color: var(--invite-accent); width: 110px; height: 110px; border:1px solid rgba(244,219,157,.35); border-radius: 50%; }
+.layout-classic .classic-person h2 { font-size: clamp(32px, 5vw, 56px); }
+.layout-classic .footer-classic { display: grid; gap: 14px; place-items: center; color: var(--invite-accent); }
+
+/* =========================================================
+ * Layout: Floral / Botanical — heavy ornament corners + photo frames
+ * ========================================================= */
+.layout-floral, .layout-botanical { --invite-paper: rgba(255,255,255,.08); }
+.layout-floral .gate-floral .gate-card,
+.layout-botanical .gate-card { position: relative; min-height: 720px; padding: 60px 36px; background: radial-gradient(circle at top, rgba(255,255,255,.16), transparent 50%), linear-gradient(180deg, rgba(20,15,10,.88), rgba(8,7,5,.95)); border: 1px solid rgba(244,219,157,.28); }
+.layout-floral .gate-card .layout-display,
+.layout-botanical .gate-card .layout-display { font-size: clamp(54px, 13vw, 102px); margin: 16px 0; color: var(--invite-accent); }
+.layout-floral .floral-corner { position: absolute; color: var(--invite-accent); pointer-events: none; opacity: .9; }
+.layout-floral .floral-corner.top-left { top: 8px; left: 8px; }
+.layout-floral .floral-corner.top-right { top: 8px; right: 8px; transform: scaleX(-1); }
+.layout-floral .floral-corner.bottom-left { bottom: 8px; left: 8px; transform: scaleY(-1); }
+.layout-floral .floral-corner.bottom-right { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+.layout-botanical .floral-corner { position: absolute; color: var(--invite-accent); }
+.layout-floral .script-amp,
+.layout-botanical .script-amp { font-family: var(--font-dancing), cursive; color: var(--invite-accent); font-size: .55em; padding: 0 .2em; opacity: .8; }
+.layout-floral .floral-date,
+.layout-botanical .floral-date { color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-size: 13px; margin: 12px 0; }
+.layout-floral .hero-floral,
+.layout-botanical .hero-floral { padding: 120px 20px 100px; }
+.layout-floral .floral-couple,
+.layout-botanical .floral-couple { grid-template-columns: 1fr auto 1fr; gap: 32px; }
+.layout-floral .floral-person,
+.layout-botanical .floral-person { background: var(--invite-paper); border-color: rgba(244,219,157,.25); }
+.layout-floral .person-frame,
+.layout-botanical .person-frame { width: 240px; height: 320px; margin: 0 auto 18px; border-radius: 200px 200px 24px 24px; overflow: hidden; border:1px solid rgba(244,219,157,.4); position: relative; background: rgba(0,0,0,.4); }
+.layout-floral .person-photo,
+.layout-botanical .person-photo { width:100%; height:100%; object-fit:cover; }
+.layout-floral .person-avatar,
+.layout-botanical .person-avatar { width:100%; height:100%; display:grid; place-items:center; font-size: 90px; color: var(--invite-accent); }
+.layout-floral .ampersand-bloom,
+.layout-botanical .ampersand-bloom { color: var(--invite-accent); display: grid; place-items: center; }
+.layout-floral .section-orn,
+.layout-botanical .section-orn { position: absolute; color: var(--invite-accent); opacity: .45; pointer-events: none; }
+.layout-floral .section-orn.top-left,
+.layout-botanical .section-orn.top-left { top: 10px; left: 10px; }
+.layout-floral .section-orn.top-right,
+.layout-botanical .section-orn.top-right { top: 10px; right: 10px; transform: scaleX(-1); }
+.layout-floral .section-orn.bottom-right,
+.layout-botanical .section-orn.bottom-right { bottom: 10px; right: 10px; transform: scale(-1, -1); }
+.layout-floral .section-floral,
+.layout-botanical .section-floral { position: relative; }
+.layout-floral .gallery-grid-floral,
+.layout-botanical .gallery-grid-floral { grid-template-columns: repeat(3, 1fr); }
+.layout-floral .floral-tile,
+.layout-botanical .floral-tile { border-radius: 200px 200px 24px 24px; }
+.layout-floral .floral-tile.tall,
+.layout-botanical .floral-tile.tall { grid-row: span 2; }
+.layout-floral .footer-floral,
+.layout-botanical .footer-floral { display: grid; gap: 14px; place-items: center; color: var(--invite-accent); padding: 70px 20px 100px; }
+
+/* Botanical-specific tweaks */
+.layout-botanical { --invite-bg: #0e1812; }
+.layout-botanical .gate-card { box-shadow: var(--shadow), inset 0 0 80px rgba(125,160,124,.18); }
+
+/* =========================================================
+ * Layout: Minimal — clean sans + thin gold rules
+ * ========================================================= */
+.layout-minimal { --invite-paper: rgba(255,255,255,.05); }
+.layout-minimal .gate-minimal .gate-card { background: rgba(8,7,5,.85); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; min-height: 600px; padding: 80px 36px; }
+.layout-minimal .minimal-rule { display: block; width: 60px; height: 1px; background: var(--invite-accent); margin: 20px auto; }
+.layout-minimal .minimal-display { display: grid; gap: 8px; font-size: clamp(44px, 9vw, 78px); letter-spacing: .04em; }
+.layout-minimal .ampersand-line { display: flex; align-items: center; gap: 16px; justify-content: center; }
+.layout-minimal .ampersand-line span { display: block; width: 60px; height: 1px; background: var(--invite-accent); }
+.layout-minimal .ampersand-line em { font-style: normal; color: var(--invite-accent); font-size: .6em; font-family: var(--font-italiana), Georgia, serif; }
+.layout-minimal .minimal-yth { background: transparent; border-color: rgba(255,255,255,.1); }
+.layout-minimal .minimal-meta span,
+.layout-minimal .minimal-hero-date span { display: block; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; }
+.layout-minimal .hero-minimal { padding: 120px 20px 100px; }
+.layout-minimal .minimal-quote { font-family: var(--font-italiana), Georgia, serif; font-style: normal; }
+.layout-minimal .minimal-couple { grid-template-columns: 1fr 1fr; max-width: 880px; margin: 0 auto; gap: 24px; }
+.layout-minimal .minimal-person { background: transparent; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 30px; }
+.layout-minimal .minimal-person h2 { margin-top: 14px; font-size: clamp(28px, 4vw, 44px); }
+.layout-minimal .minimal-events { grid-template-columns: 1fr 1fr; }
+.layout-minimal .gallery-grid-minimal { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.layout-minimal .minimal-tile { border-radius: 4px; aspect-ratio: 1; }
+.layout-minimal .minimal-story { font-family: var(--font-italiana), Georgia, serif; font-size: 18px; line-height: 2; }
+.layout-minimal .footer-minimal { display: grid; place-items: center; gap: 12px; color: var(--invite-accent); padding: 80px 20px 100px; }
+
+/* =========================================================
+ * Layout: Royal / Luxury — dark luxe gold baroque
+ * ========================================================= */
+.layout-royal, .layout-luxury { --invite-paper: rgba(217,181,109,.08); }
+.layout-royal .gate-royal,
+.layout-luxury .gate-royal { position: relative; overflow: hidden; min-height: 100vh; padding: 40px; }
+.layout-royal .royal-arch { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--invite-accent); opacity: .35; pointer-events: none; }
+.layout-royal .royal-gate-card { position: relative; max-width: 540px; min-height: 700px; padding: 50px 32px; background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(20,12,4,.88)); border: 1px solid rgba(217,181,109,.5); }
+.layout-royal .royal-frame { position: absolute; left: 50%; transform: translateX(-50%); color: var(--invite-accent); pointer-events: none; }
+.layout-royal .royal-frame.top { top: 24px; }
+.layout-royal .royal-frame.bottom { bottom: 24px; transform: translateX(-50%) rotate(180deg); }
+.layout-royal .royal-eyebrow { color: var(--invite-accent); letter-spacing: .32em; }
+.layout-royal .royal-display { display: grid; gap: 6px; font-size: clamp(40px, 8vw, 78px); }
+.layout-royal .royal-display em { font-style: italic; color: var(--invite-accent); font-family: var(--font-cormorant), Georgia, serif; font-size: .8em; opacity: .85; text-transform: none; letter-spacing: 0; }
+.layout-royal .royal-amp { color: var(--invite-accent); font-style: italic; font-family: var(--font-cormorant), Georgia, serif; padding: 0 .25em; text-transform: none; letter-spacing: 0; }
+.layout-royal .royal-yth { background: rgba(217,181,109,.08); border: 1px solid rgba(217,181,109,.32); }
+.layout-royal .royal-yth strong { color: var(--invite-accent); }
+.layout-royal .royal-date,
+.layout-royal .royal-hero-date { font-family: var(--font-cinzel), Georgia, serif; letter-spacing: .25em; color: var(--invite-accent); border:1px solid rgba(217,181,109,.4); padding: 14px 22px; border-radius: 4px; display: inline-block; margin: 18px auto; }
+.layout-royal .royal-seal.big { padding: 12px 22px; font-size: 12px; letter-spacing: .35em; }
+.layout-royal .hero-royal { padding: 140px 20px 110px; position: relative; }
+.layout-royal .hero-deco-top { color: var(--invite-accent); display: block; margin: 0 auto 20px; opacity: .85; }
+.layout-royal .hero-deco-bottom { color: var(--invite-accent); display: block; margin: 28px auto 0; transform: rotate(180deg); opacity: .85; }
+.layout-royal .royal-couple { grid-template-columns: 1fr auto 1fr; gap: 32px; align-items: stretch; }
+.layout-royal .royal-person { background: linear-gradient(180deg, rgba(217,181,109,.05), rgba(0,0,0,.4)); border: 1px solid rgba(217,181,109,.32); padding: 36px 28px; }
+.layout-royal .royal-medallion { width: 220px; height: 220px; margin: 0 auto 22px; border-radius: 50%; border: 2px solid rgba(217,181,109,.55); position: relative; overflow: hidden; box-shadow: 0 0 0 6px rgba(217,181,109,.12); background: rgba(0,0,0,.5); display:grid; place-items:center; }
+.layout-royal .medallion-photo { width: 100%; height: 100%; object-fit: cover; }
+.layout-royal .royal-initial { font-size: 100px; color: var(--invite-accent); }
+.layout-royal .royal-amp-block { display: grid; place-items: center; gap: 12px; color: var(--invite-accent); }
+.layout-royal .royal-amp-block em { font-family: var(--font-cormorant), Georgia, serif; font-style: italic; font-size: 60px; }
+.layout-royal .event-grid-royal,
+.layout-royal .event-grid-classic { gap: 24px; }
+.layout-royal .gallery-grid-royal { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.layout-royal .royal-tile { border-radius: 4px; }
+.layout-royal .royal-tile.wide { grid-column: span 2; grid-row: span 2; }
+.layout-royal .royal-story { font-family: var(--font-cormorant), Georgia, serif; font-size: 19px; }
+.layout-royal .footer-royal { padding: 80px 20px 110px; display: grid; place-items: center; gap: 16px; color: var(--invite-accent); }
+/* Luxury subset of royal */
+.layout-luxury .gate-card,
+.layout-luxury .gate-royal { background-image: linear-gradient(180deg, rgba(0,0,0,.5), rgba(20,15,8,.85)); }
+.layout-luxury .royal-medallion { border-radius: 24px 24px 200px 200px; }
+
+/* =========================================================
+ * Layout: Cinematic — full-bleed photo backgrounds
+ * ========================================================= */
+.layout-cinematic { --invite-paper: rgba(255,255,255,.07); }
+.layout-cinematic .gate-cinematic { background-color: #050403; background-size: cover; background-position: center; min-height: 100vh; padding: 40px; display:grid; place-items:center; }
+.layout-cinematic .cinematic-gate-card { position: relative; max-width: 640px; padding: 60px 28px; background: rgba(8,7,5,.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.16); border-radius: 12px; }
+.layout-cinematic .cinematic-stars { position: absolute; top: 18px; right: 18px; color: var(--invite-accent); opacity: .65; }
+.layout-cinematic .cinematic-eyebrow { letter-spacing: .42em; color: rgba(255,255,255,.85); }
+.layout-cinematic .cinematic-display { font-size: clamp(54px, 12vw, 120px); display: grid; line-height: .9; }
+.layout-cinematic .cinematic-display .amp { color: var(--invite-accent); font-size: .55em; font-family: var(--font-italiana), Georgia, serif; padding: 8px 0; letter-spacing: 0; }
+.layout-cinematic .cinematic-yth { background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.18); }
+.layout-cinematic .cinematic-yth strong { color: var(--invite-accent); font-size: 24px; }
+.layout-cinematic .cinematic-date { font-family: var(--font-bodoni), Georgia, serif; font-size: 22px; letter-spacing: .15em; color: rgba(255,255,255,.85); margin: 12px 0; }
+.layout-cinematic .hero-cinematic { min-height: 100vh; background-color: #050403; background-size: cover; background-position: center; display: grid; place-items: center; padding: 60px 20px; }
+.layout-cinematic .cinematic-hero-inner { background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.5)); padding: 60px; border-radius: 12px; max-width: 840px; }
+.layout-cinematic .cinematic-quote { font-family: var(--font-bodoni), Georgia, serif; font-size: 22px; line-height: 1.6; }
+.layout-cinematic .cinematic-meta { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 22px 0; color: rgba(255,255,255,.7); letter-spacing: .2em; text-transform: uppercase; font-size: 13px; }
+.layout-cinematic .cinematic-couple { display: grid; gap: 28px; max-width: 1080px; margin: 32px auto 0; }
+.layout-cinematic .cinematic-person { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; text-align: left; }
+.layout-cinematic .cinematic-person.reverse { direction: rtl; }
+.layout-cinematic .cinematic-person.reverse > * { direction: ltr; }
+.layout-cinematic .cinematic-portrait { width: 100%; height: 100%; min-height: 380px; object-fit: cover; border-radius: 8px; }
+.layout-cinematic .cinematic-person-meta h2 { font-size: clamp(34px, 6vw, 64px); margin: 8px 0 12px; }
+.layout-cinematic .cinematic-person-meta span { color: rgba(255,255,255,.55); letter-spacing: .25em; text-transform: uppercase; font-size: 11px; }
+.layout-cinematic .event-cinema { background-color: #050403; background-size: cover; background-position: center; padding: 120px 20px; }
+.layout-cinematic .gallery-grid-cinematic { grid-template-columns: repeat(3, 1fr); gap: 8px; grid-auto-flow: dense; }
+.layout-cinematic .cinematic-tile { border-radius: 4px; overflow: hidden; aspect-ratio: 4/5; }
+.layout-cinematic .cinematic-tile.feature { grid-column: span 2; grid-row: span 2; aspect-ratio: 3/4; }
+.layout-cinematic .cinematic-tile.tall { grid-row: span 2; aspect-ratio: 3/4; }
+.layout-cinematic .cinematic-story { font-family: var(--font-playfair), Georgia, serif; font-size: 22px; line-height: 1.85; max-width: 760px; margin: 0 auto; }
+.layout-cinematic .footer-cinematic { padding: 90px 20px 110px; display: grid; place-items: center; gap: 16px; color: rgba(255,255,255,.7); }
+
+/* =========================================================
+ * Layout: Editorial — magazine split-screen
+ * ========================================================= */
+.layout-editorial { --invite-paper: rgba(255,255,255,.06); background: #0a0908; }
+.layout-editorial .gate-editorial { min-height: 100vh; }
+.layout-editorial .editorial-gate-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.layout-editorial .editorial-gate-photo { position: relative; background: rgba(0,0,0,.3); overflow: hidden; }
+.layout-editorial .gate-image { object-fit: cover; }
+.layout-editorial .editorial-placeholder { width:100%; height:100%; display:grid; place-items:center; font-size: 200px; color: var(--invite-accent); }
+.layout-editorial .editorial-photo-tag { position: absolute; bottom: 18px; left: 18px; padding: 6px 12px; background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.9); letter-spacing: .25em; text-transform: uppercase; font-size: 11px; }
+.layout-editorial .editorial-gate-content { padding: 80px 60px; display: grid; align-content: center; gap: 18px; text-align: left; }
+.layout-editorial .editorial-display { font-size: clamp(54px, 8vw, 110px); line-height: .9; }
+.layout-editorial .editorial-display .amp { font-family: var(--font-italiana), Georgia, serif; font-style: italic; color: var(--invite-accent); padding: 0 .15em; }
+.layout-editorial .editorial-tagline { font-family: var(--font-bodoni), Georgia, serif; font-size: 18px; line-height: 1.6; color: rgba(255,255,255,.7); }
+.layout-editorial .editorial-yth { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.14); }
+.layout-editorial .editorial-yth strong { color: var(--invite-accent); }
+.layout-editorial .editorial-date { font-family: ui-monospace, monospace; letter-spacing: .25em; text-transform: uppercase; font-size: 13px; color: var(--muted); }
+.layout-editorial .hero-editorial { min-height: 100vh; padding: 0; display: grid; }
+.layout-editorial .editorial-hero-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.layout-editorial .editorial-hero-photo { position: relative; background: rgba(0,0,0,.3); }
+.layout-editorial .editorial-image { object-fit: cover; }
+.layout-editorial .editorial-hero-content { padding: 80px 60px; display: grid; align-content: center; gap: 18px; text-align: left; }
+.layout-editorial .editorial-quote { border-left: 2px solid var(--invite-accent); padding-left: 18px; font-family: var(--font-bodoni), Georgia, serif; font-size: 20px; line-height: 1.55; color: rgba(255,255,255,.78); margin: 0; }
+.layout-editorial .editorial-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); }
+.layout-editorial .editorial-meta div { display: grid; gap: 4px; }
+.layout-editorial .editorial-meta span { color: rgba(255,255,255,.5); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; }
+.layout-editorial .editorial-meta strong { font-family: var(--font-bodoni), Georgia, serif; font-size: 18px; color: rgba(255,255,255,.9); }
+.layout-editorial .section-editorial { text-align: left; max-width: 980px; }
+.layout-editorial .editorial-couple { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 24px; }
+.layout-editorial .editorial-person { padding: 40px 30px; border: 1px solid rgba(255,255,255,.1); border-radius: 4px; position: relative; background: var(--invite-paper); }
+.layout-editorial .editorial-person-num { position: absolute; top: 14px; right: 18px; font-family: var(--font-bodoni), Georgia, serif; font-size: 36px; color: var(--invite-accent); opacity: .35; }
+.layout-editorial .editorial-person h2 { font-size: clamp(30px, 4vw, 50px); margin: 14px 0; }
+.layout-editorial .editorial-person-meta { color: rgba(255,255,255,.7); line-height: 1.7; }
+.layout-editorial .gallery-grid-editorial { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; gap: 6px; grid-auto-flow: dense; }
+.layout-editorial .editorial-tile { overflow: hidden; border-radius: 2px; }
+.layout-editorial .editorial-tile-0 { grid-column: span 2; grid-row: span 2; }
+.layout-editorial .editorial-tile-2 { grid-row: span 2; }
+.layout-editorial .editorial-story { font-family: var(--font-bodoni), Georgia, serif; font-size: 20px; line-height: 1.85; column-count: 2; column-gap: 36px; max-width: 880px; margin: 12px auto 0; text-align: left; }
+.layout-editorial .footer-editorial { padding: 80px 20px 100px; display: grid; place-items: center; gap: 12px; }
+
+/* =========================================================
+ * Cover styles (cover-photo / cover-arch / cover-split / cover-ornament / cover-minimal)
+ * Most coverStyle distinctions are already encoded in the layout components,
+ * but a few palette tweaks help unify the look.
+ * ========================================================= */
+.cover-arch .gate-card,
+.cover-arch .royal-gate-card { border-top-left-radius: 220px; border-top-right-radius: 220px; }
+.cover-photo .gate-card { background-blend-mode: multiply; }
+
+/* =========================================================
+ * Admin music manager
+ * ========================================================= */
+.admin-music-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 18px 0; }
+.admin-music-form > label { display: grid; gap: 6px; color: var(--muted); }
+.admin-music-form > label:nth-child(1) { grid-column: 1 / -1; }
+.admin-music-form .admin-music-actions { grid-column: 1 / -1; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.admin-music-form .upload-button { position: relative; cursor: pointer; }
+.admin-music-form .upload-button input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.admin-music-form .presets { display: flex; gap: 6px; flex-wrap: wrap; }
+.admin-music-preview { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,.04); border-radius: 12px; margin: 8px 0 14px; }
+.admin-music-preview audio { width: 100%; max-width: 480px; }
+.admin-music-preview audio::-webkit-media-controls-panel { background: rgba(255,255,255,.08); }
+
+/* =========================================================
+ * Template card preview tweaks (per-layout micro variations)
+ * ========================================================= */
+.template-card .mini-cover.preview-classic   { background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.4)); }
+.template-card .mini-cover.preview-floral    { background: radial-gradient(circle at top, rgba(217,150,170,.25), transparent 60%), rgba(0,0,0,.35); }
+.template-card .mini-cover.preview-botanical { background: radial-gradient(circle at bottom, rgba(125,160,124,.22), transparent 60%), rgba(0,0,0,.35); }
+.template-card .mini-cover.preview-minimal   { background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.18) !important; }
+.template-card .mini-cover.preview-royal     { background: linear-gradient(180deg, rgba(217,181,109,.22), rgba(0,0,0,.7)); }
+.template-card .mini-cover.preview-luxury    { background: linear-gradient(180deg, rgba(241,223,184,.22), rgba(0,0,0,.7)); }
+.template-card .mini-cover.preview-cinematic { background: radial-gradient(circle at center, rgba(255,255,255,.16), rgba(0,0,0,.85)); }
+.template-card .mini-cover.preview-editorial { background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(0,0,0,.75)); }
+
+.template-card .mini-cover .mini-couple,
+.template-card .mini-cover .mini-rule { color: var(--invite-accent, #d9b56d); border-color: currentColor; }
+
+/* =========================================================
+ * Mobile fallbacks for new layouts
+ * ========================================================= */
+@media (max-width: 860px) {
+  .layout-classic .couple-cards { grid-template-columns: 1fr; }
+  .layout-floral .floral-couple,
+  .layout-botanical .floral-couple { grid-template-columns: 1fr; }
+  .layout-floral .gallery-grid-floral,
+  .layout-botanical .gallery-grid-floral { grid-template-columns: repeat(2, 1fr); }
+  .layout-minimal .minimal-couple,
+  .layout-minimal .minimal-events,
+  .layout-minimal .gallery-grid-minimal { grid-template-columns: repeat(2, 1fr); }
+  .layout-royal .royal-couple { grid-template-columns: 1fr; }
+  .layout-royal .gallery-grid-royal { grid-template-columns: repeat(2, 1fr); }
+  .layout-cinematic .cinematic-person,
+  .layout-cinematic .cinematic-person.reverse { grid-template-columns: 1fr; direction: ltr; }
+  .layout-cinematic .gallery-grid-cinematic { grid-template-columns: repeat(2, 1fr); }
+  .layout-cinematic .cinematic-tile.feature { grid-column: span 2; grid-row: span 1; }
+  .layout-editorial .editorial-gate-grid,
+  .layout-editorial .editorial-hero-grid { grid-template-columns: 1fr; }
+  .layout-editorial .editorial-gate-content,
+  .layout-editorial .editorial-hero-content { padding: 50px 28px; }
+  .layout-editorial .editorial-couple { grid-template-columns: 1fr; }
+  .layout-editorial .gallery-grid-editorial { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+  .layout-editorial .editorial-tile-0 { grid-column: span 2; grid-row: span 2; }
+  .layout-editorial .editorial-story { column-count: 1; }
+}
+
+@media (max-width: 520px) {
+  .layout-classic .gate-card .layout-display { font-size: clamp(48px, 14vw, 80px); }
+  .layout-floral .gate-card,
+  .layout-botanical .gate-card { padding: 40px 22px; }
+  .layout-floral .gate-card .layout-display,
+  .layout-botanical .gate-card .layout-display { font-size: clamp(44px, 13vw, 78px); }
+  .layout-royal .royal-gate-card { padding: 38px 22px; }
+  .layout-royal .royal-display { font-size: clamp(34px, 9vw, 60px); }
+  .layout-cinematic .cinematic-display { font-size: clamp(46px, 13vw, 90px); }
+  .layout-cinematic .cinematic-hero-inner { padding: 32px 18px; }
+  .layout-editorial .editorial-display { font-size: clamp(44px, 11vw, 80px); }
+  .layout-minimal .gallery-grid-minimal { grid-template-columns: repeat(2, 1fr); }
+}

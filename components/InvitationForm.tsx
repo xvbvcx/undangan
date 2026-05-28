@@ -8,13 +8,6 @@ import { makeSlug } from "@/lib/format";
 import { slugReason } from "@/lib/sanitize";
 import { useToast } from "@/components/Toast";
 
-const PRESET_BACKSOUND = [
-  { value: "/audio/soft-wedding-chime.wav", label: "Soft Wedding Chime" },
-  { value: "/audio/royal-opening-chime.wav", label: "Royal Opening Chime" },
-  { value: "/audio/garden-love-chime.wav", label: "Garden Love Chime" },
-  { value: "", label: "Tanpa musik" }
-] as const;
-
 const STEPS = [
   { id: "couple", label: "Pengantin" },
   { id: "media", label: "Foto" },
@@ -46,8 +39,6 @@ export function InvitationForm({ template, initial }: Props) {
   );
 
   const slugError = useMemo(() => slugReason(generatedSlug), [generatedSlug]);
-
-  const isPresetMusic = PRESET_BACKSOUND.some((preset) => preset.value === data.musicUrl);
 
   function update<K extends keyof InvitationData>(key: K, value: InvitationData[K]) {
     setData((current) => ({ ...current, [key]: value }));
@@ -113,6 +104,7 @@ export function InvitationForm({ template, initial }: Props) {
         <h1>{initial ? "Edit undangan" : "Buat undangan"}</h1>
         <p>Template: <strong>{template.name}</strong></p>
         <p className="muted">Foto maksimal 8: pasangan, pengantin, dan orang tua kedua belah pihak.</p>
+        <p className="muted">Backsound diatur otomatis sesuai template (admin yang memilih). Kamu tidak perlu input URL musik.</p>
 
         <label className="slug-field">
           Slug undangan
@@ -177,13 +169,7 @@ export function InvitationForm({ template, initial }: Props) {
                 <label>Alamat<input value={data.akadAddress} onChange={(e) => update("akadAddress", e.target.value)} maxLength={280} /></label>
                 <label className="full">
                   Link Google Maps
-                  <input
-                    type="url"
-                    value={data.akadMaps}
-                    onChange={(e) => update("akadMaps", e.target.value)}
-                    placeholder="https://maps.google.com/..."
-                    pattern="https?://.*"
-                  />
+                  <input type="url" value={data.akadMaps} onChange={(e) => update("akadMaps", e.target.value)} placeholder="https://maps.google.com/..." pattern="https?://.*" />
                 </label>
               </div>
             </section>
@@ -196,13 +182,7 @@ export function InvitationForm({ template, initial }: Props) {
                 <label>Alamat<input value={data.receptionAddress} onChange={(e) => update("receptionAddress", e.target.value)} maxLength={280} /></label>
                 <label className="full">
                   Link Google Maps
-                  <input
-                    type="url"
-                    value={data.receptionMaps}
-                    onChange={(e) => update("receptionMaps", e.target.value)}
-                    placeholder="https://maps.google.com/..."
-                    pattern="https?://.*"
-                  />
+                  <input type="url" value={data.receptionMaps} onChange={(e) => update("receptionMaps", e.target.value)} placeholder="https://maps.google.com/..." pattern="https?://.*" />
                 </label>
               </div>
             </section>
@@ -211,35 +191,14 @@ export function InvitationForm({ template, initial }: Props) {
 
         {step === "story" ? (
           <section className="form-section">
-            <h2>Konten & Musik</h2>
+            <h2>Konten</h2>
             <div className="form-grid">
               <label>Quote<textarea value={data.quote} onChange={(e) => update("quote", e.target.value)} rows={3} maxLength={600} /></label>
               <label>Kalimat pembuka<textarea value={data.openingText} onChange={(e) => update("openingText", e.target.value)} rows={3} maxLength={800} /></label>
               <label>Judul cerita<input value={data.storyTitle} onChange={(e) => update("storyTitle", e.target.value)} maxLength={80} /></label>
               <label>Love story<textarea value={data.story} onChange={(e) => update("story", e.target.value)} rows={4} maxLength={2000} /></label>
-              <label>
-                Backsound preset
-                <select
-                  value={isPresetMusic ? data.musicUrl : ""}
-                  onChange={(e) => update("musicUrl", e.target.value)}
-                >
-                  {PRESET_BACKSOUND.map((preset) => (
-                    <option key={preset.value} value={preset.value}>{preset.label}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Custom backsound URL
-                <input
-                  type="url"
-                  value={isPresetMusic ? "" : data.musicUrl}
-                  onChange={(e) => update("musicUrl", e.target.value)}
-                  placeholder="https://...mp3"
-                  pattern="https?://.*"
-                />
-                <small className="muted">Pakai URL .mp3/.ogg/.m4a yang kamu hosting sendiri. Kosong = pakai preset.</small>
-              </label>
             </div>
+            <p className="muted">Backsound: ditentukan oleh template &amp; admin. Untuk mengubah musik, hubungi admin.</p>
           </section>
         ) : null}
 
@@ -253,14 +212,8 @@ export function InvitationForm({ template, initial }: Props) {
             </div>
             <label className="full">
               QRIS image URL (opsional)
-              <input
-                type="url"
-                value={data.giftQris}
-                onChange={(e) => update("giftQris", e.target.value)}
-                placeholder="https://...qris.png"
-                pattern="https?://.*"
-              />
-              <small className="muted">Tempel URL gambar QRIS yang sudah kamu hosting (Supabase / public storage).</small>
+              <input type="url" value={data.giftQris} onChange={(e) => update("giftQris", e.target.value)} placeholder="https://...qris.png" pattern="https?://.*" />
+              <small className="muted">Tempel URL gambar QRIS yang sudah kamu hosting.</small>
             </label>
           </section>
         ) : null}

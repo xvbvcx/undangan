@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ToastProvider } from "@/components/Toast";
+import { fontVariables, fontInter } from "@/lib/fonts";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nikahkilat.app";
@@ -30,7 +31,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
+    <html lang="id" className={`${fontInter.className} ${fontVariables}`}>
       <body>
         <ToastProvider>{children}</ToastProvider>
       </body>

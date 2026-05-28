@@ -2,7 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AdminInvitationActions, AdminOrderActions, AdminProfileActions } from "@/components/AdminActions";
+import { AdminMusicManager } from "@/components/AdminMusicManager";
 import type { InvitationRecord, OrderRecord, ProfileRecord } from "@/lib/types";
+import { templates } from "@/lib/templates";
 import { formatRupiah } from "@/lib/format";
 
 export default async function AdminPage() {
@@ -19,29 +21,10 @@ export default async function AdminPage() {
     { data: profiles },
     { data: auditLogs }
   ] = await Promise.all([
-    supabase
-      .from("invitations")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(80)
-      .returns<InvitationRecord[]>(),
-    supabase
-      .from("orders")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(80)
-      .returns<OrderRecord[]>(),
-    supabase
-      .from("profiles")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(80)
-      .returns<ProfileRecord[]>(),
-    supabase
-      .from("audit_logs")
-      .select("id, action, target_type, target_id, created_at, actor_id")
-      .order("created_at", { ascending: false })
-      .limit(40)
+    supabase.from("invitations").select("*").order("created_at", { ascending: false }).limit(80).returns<InvitationRecord[]>(),
+    supabase.from("orders").select("*").order("created_at", { ascending: false }).limit(80).returns<OrderRecord[]>(),
+    supabase.from("profiles").select("*").order("created_at", { ascending: false }).limit(80).returns<ProfileRecord[]>(),
+    supabase.from("audit_logs").select("id, action, target_type, target_id, created_at, actor_id").order("created_at", { ascending: false }).limit(40)
   ]);
 
   const invitationList = invitations ?? [];
@@ -49,9 +32,7 @@ export default async function AdminPage() {
   const profileList = profiles ?? [];
 
   const paidInvitations = invitationList.filter((i) => i.payment_status === "paid").length;
-  const totalRevenue = orderList
-    .filter((order) => order.status === "paid")
-    .reduce((sum, order) => sum + order.amount, 0);
+  const totalRevenue = orderList.filter((order) => order.status === "paid").reduce((sum, order) => sum + order.amount, 0);
 
   return (
     <main className="dashboard-page">
@@ -72,6 +53,8 @@ export default async function AdminPage() {
           <div><strong>{formatRupiah(totalRevenue)}</strong><span>Revenue</span></div>
         </div>
       </section>
+
+      <AdminMusicManager templates={templates} />
 
       <section className="admin-table-section">
         <h2>Undangan terbaru</h2>
