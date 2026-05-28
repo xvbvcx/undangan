@@ -13,7 +13,7 @@ import type { LayoutProps } from "@/components/renderers/types";
 // gradients. Designed for premium templates that want a "movie poster" feel:
 // "Monarch Pearl", "Eternal Diamond", "Regal Moonlight", etc.
 export function CinematicLayout({ invitation, template, data, preview, guestName, guestSlug, musicUrl, opened, onOpen }: LayoutProps) {
-  const premium = template.tier === "premium";
+  const premium = false; // all free now
   const gallery = invitation.gallery_urls ?? [];
   const heroImage = gallery[0];
 
@@ -138,7 +138,7 @@ export function CinematicLayout({ invitation, template, data, preview, guestName
       <footer className="invite-footer footer-cinematic">
         <p>Directed by love. Presented to you with gratitude.</p>
         <strong className="layout-display cinematic-display">{data.groomNickname || data.groomName} &amp; {data.brideNickname || data.brideName}</strong>
-        {!premium && !preview ? <span className="watermark">Created with Nikah Kilat</span> : null}
+        {null}
       </footer>
     </>
   );

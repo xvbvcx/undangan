@@ -13,7 +13,7 @@ import type { LayoutProps } from "@/components/renderers/types";
 // typography mix, asymmetric gallery. For "Laras Modern", "Aristocrat Sage",
 // "Prestige Marble", "Couture Jasmine".
 export function EditorialLayout({ invitation, template, data, preview, guestName, guestSlug, musicUrl, opened, onOpen }: LayoutProps) {
-  const premium = template.tier === "premium";
+  const premium = false; // all free now
   const gallery = invitation.gallery_urls ?? [];
   const cover = gallery[0];
 
@@ -141,7 +141,7 @@ export function EditorialLayout({ invitation, template, data, preview, guestName
         <WaveOrnament size={120} />
         <p>This issue was published with love by</p>
         <strong className="layout-display editorial-display">{data.groomNickname || data.groomName} &amp; {data.brideNickname || data.brideName}</strong>
-        {!premium && !preview ? <span className="watermark">Created with Nikah Kilat</span> : null}
+        {null}
       </footer>
     </>
   );

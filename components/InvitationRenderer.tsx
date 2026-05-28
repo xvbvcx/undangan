@@ -4,12 +4,14 @@ import { useEffect, useMemo, useState } from "react";
 import type { InvitationData, InvitationRecord, TemplateMeta } from "@/lib/types";
 import { emptyInvitationData } from "@/lib/types";
 import { safeAudioUrl } from "@/lib/sanitize";
+import { useScrollRevealSections } from "@/components/useScrollRevealSections";
 import { ClassicLayout } from "@/components/renderers/ClassicLayout";
 import { FloralLayout } from "@/components/renderers/FloralLayout";
 import { MinimalLayout } from "@/components/renderers/MinimalLayout";
 import { RoyalLayout } from "@/components/renderers/RoyalLayout";
 import { CinematicLayout } from "@/components/renderers/CinematicLayout";
 import { EditorialLayout } from "@/components/renderers/EditorialLayout";
+import { AdatLayout } from "@/components/renderers/AdatLayout";
 import type { LayoutProps } from "@/components/renderers/types";
 
 type Props = {
@@ -40,6 +42,7 @@ function LayoutDispatcher(props: LayoutProps) {
     case "luxury":    return <RoyalLayout {...props} />;
     case "cinematic": return <CinematicLayout {...props} />;
     case "editorial": return <EditorialLayout {...props} />;
+    case "adat":      return <AdatLayout {...props} />;
     default:          return <ClassicLayout {...props} />;
   }
 }
@@ -47,6 +50,9 @@ function LayoutDispatcher(props: LayoutProps) {
 export function InvitationRenderer({ invitation, template, preview = false, guestName, guestSlug, musicOverride }: Props) {
   const data = useMemo(() => fillInvitationData(invitation.data), [invitation.data]);
   const [opened, setOpened] = useState(false);
+
+  // Activate scroll-reveal animations on all .invite-section elements
+  useScrollRevealSections();
 
   // Resolve music in priority order: admin override -> template default ->
   // legacy musicUrl saved on the invitation -> nothing.
@@ -80,7 +86,7 @@ export function InvitationRenderer({ invitation, template, preview = false, gues
   }, [opened, invitation.id, preview, guestSlug]);
 
   const safeGuestName = useMemo(() => (guestName ?? "").trim().slice(0, 80), [guestName]);
-  const layoutClass = `invite-page invite-${template.tier === "premium" ? "premium" : "free"} layout-${template.layout} font-${template.fontFamily} cover-${template.coverStyle} ornament-${template.ornament} palette-${template.palette} animation-${template.animation}`;
+  const layoutClass = `invite-page invite-premium layout-${template.layout} font-${template.fontFamily} cover-${template.coverStyle} ornament-${template.ornament} palette-${template.palette} animation-${template.animation}${template.culture ? ` culture-${template.culture}` : ""}`;
 
   return (
     <div className={layoutClass} style={{ "--accent": template.accent } as React.CSSProperties}>

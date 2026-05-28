@@ -14,7 +14,7 @@ import type { LayoutProps } from "@/components/renderers/types";
 // timeless wedding invitations: think cream paper texture, soft palette,
 // serif headlines, romantic feel.
 export function ClassicLayout({ invitation, template, data, preview, guestName, guestSlug, musicUrl, opened, onOpen }: LayoutProps) {
-  const premium = template.tier === "premium";
+  const premium = false; // all free now
   const initialsTop = (data.groomNickname || data.groomName || "A").charAt(0).toUpperCase();
   const initialsBottom = (data.brideNickname || data.brideName || "R").charAt(0).toUpperCase();
   const gallery = invitation.gallery_urls ?? [];
@@ -127,7 +127,7 @@ export function ClassicLayout({ invitation, template, data, preview, guestName, 
         <Ornament kind={template.ornament} size={90} />
         <p>Terima kasih atas doa dan restunya.</p>
         <strong className="layout-display">{data.groomNickname || data.groomName} &amp; {data.brideNickname || data.brideName}</strong>
-        {!premium && !preview ? <span className="watermark">Created with Nikah Kilat</span> : null}
+        {null}
       </footer>
     </>
   );

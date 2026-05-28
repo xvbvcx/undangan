@@ -88,7 +88,7 @@ export default async function PublicInvitationPage({ params, searchParams }: Pag
   if (redirect) permanentRedirect(`/u/${redirect}`);
   if (!invitation) notFound();
   if (invitation.active_until && new Date(invitation.active_until).getTime() < Date.now()) notFound();
-  if (invitation.template_tier === "premium" && invitation.payment_status !== "paid") notFound();
+  // All templates are free now — no premium gate check needed.
 
   const template = getTemplate(invitation.template_slug);
   if (!template) notFound();

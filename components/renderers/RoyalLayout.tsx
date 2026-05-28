@@ -13,7 +13,7 @@ import type { LayoutProps } from "@/components/renderers/types";
 // display font, arched window cover. Matches "Imperial Aurum", "Velvet
 // Royale", "Golden Dynasty", and the rest of the premium royal/luxury tier.
 export function RoyalLayout({ invitation, template, data, preview, guestName, guestSlug, musicUrl, opened, onOpen }: LayoutProps) {
-  const premium = template.tier === "premium";
+  const premium = false; // all free now
   const gallery = invitation.gallery_urls ?? [];
 
   if (!opened) {
@@ -134,7 +134,7 @@ export function RoyalLayout({ invitation, template, data, preview, guestName, gu
         <DecoFrameOrnament size={200} />
         <p>Atas kehadiran dan doa restu Bapak/Ibu/Saudara/i, kami ucapkan terima kasih.</p>
         <strong className="layout-display royal-display">{data.groomNickname || data.groomName} &amp; {data.brideNickname || data.brideName}</strong>
-        {!premium && !preview ? <span className="watermark">Created with Nikah Kilat</span> : null}
+        {null}
       </footer>
     </>
   );

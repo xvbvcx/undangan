@@ -40,7 +40,7 @@ export default async function TemplatePreviewPage({ params }: { params: Promise<
     <main>
       <div className="preview-toolbar">
         <Link href="/#template" className="button ghost">← Kembali</Link>
-        <div><strong>{template.name}</strong><span>{template.tier === "premium" ? "Premium terkunci saat publish" : "Gratis"}</span></div>
+        <div><strong>{template.name}</strong><span>Ultra Premium Gratis</span></div>
         <Link href={`/buat/${template.slug}`} className="button gold">Gunakan template</Link>
       </div>
       <InvitationRenderer invitation={demo} template={template} preview />

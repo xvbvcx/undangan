@@ -692,3 +692,217 @@ th { color: var(--text); }
   .layout-editorial .editorial-display { font-size: clamp(44px, 11vw, 80px); }
   .layout-minimal .gallery-grid-minimal { grid-template-columns: repeat(2, 1fr); }
 }
+
+
+/* =========================================================
+ * SCROLL REVEAL ANIMATION SYSTEM
+ * IntersectionObserver adds .sr-visible when element enters viewport.
+ * Each .sr-<variant> defines its own start state; the transition to
+ * visible state is shared via .sr-visible.
+ * ========================================================= */
+
+.sr-reveal {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.sr-fade-up        { transform: translateY(40px); }
+.sr-fade-left      { transform: translateX(-40px); }
+.sr-fade-right     { transform: translateX(40px); }
+.sr-fade-scale     { transform: scale(0.92); }
+.sr-slide-up       { transform: translateY(80px); }
+.sr-slide-left     { transform: translateX(-80px); }
+.sr-slide-right    { transform: translateX(80px); }
+
+.sr-reveal.sr-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Stagger helper classes for grids */
+.sr-stagger > .sr-reveal:nth-child(1) { transition-delay: 0ms; }
+.sr-stagger > .sr-reveal:nth-child(2) { transition-delay: 80ms; }
+.sr-stagger > .sr-reveal:nth-child(3) { transition-delay: 160ms; }
+.sr-stagger > .sr-reveal:nth-child(4) { transition-delay: 240ms; }
+.sr-stagger > .sr-reveal:nth-child(5) { transition-delay: 320ms; }
+.sr-stagger > .sr-reveal:nth-child(6) { transition-delay: 400ms; }
+.sr-stagger > .sr-reveal:nth-child(7) { transition-delay: 480ms; }
+.sr-stagger > .sr-reveal:nth-child(8) { transition-delay: 560ms; }
+
+/* Full-section slide animations for invitation pages */
+.invite-page .invite-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.invite-page .invite-section.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gate entrance animation */
+.invite-gate {
+  animation: gate-entrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes gate-entrance {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Hero slide-in after gate opens */
+.invite-hero {
+  animation: hero-slide-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hero-slide-in {
+  from { opacity: 0; transform: translateY(60px) scale(0.97); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Gallery tiles stagger on scroll */
+.invite-gallery .gallery-tile {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.invite-gallery.gallery-visible .gallery-tile {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.invite-gallery.gallery-visible .gallery-tile:nth-child(1) { transition-delay: 0ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(2) { transition-delay: 80ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(3) { transition-delay: 160ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(4) { transition-delay: 240ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(5) { transition-delay: 320ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(6) { transition-delay: 400ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(7) { transition-delay: 480ms; }
+.invite-gallery.gallery-visible .gallery-tile:nth-child(8) { transition-delay: 560ms; }
+
+/* Person cards slide in from sides */
+.couple-cards .person-card,
+.couple-cards .person-card,
+.editorial-person,
+.cinematic-person {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.section-visible .person-card:nth-child(1),
+.section-visible .editorial-person:nth-child(1),
+.section-visible .cinematic-person:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+.section-visible .person-card:nth-child(2),
+.section-visible .editorial-person:nth-child(2),
+.section-visible .cinematic-person:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 200ms; }
+.section-visible .person-card:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 100ms; }
+
+/* Event cards */
+.event-grid .event-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section-visible .event-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+.section-visible .event-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 150ms; }
+
+/* Countdown slots pop in */
+.countdown-card .countdown-slot {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.section-visible .countdown-slot:nth-child(1),
+.invite-hero .countdown-slot:nth-child(1) { opacity: 1; transform: scale(1); transition-delay: 0ms; }
+.section-visible .countdown-slot:nth-child(2),
+.invite-hero .countdown-slot:nth-child(2) { opacity: 1; transform: scale(1); transition-delay: 100ms; }
+.section-visible .countdown-slot:nth-child(3),
+.invite-hero .countdown-slot:nth-child(3) { opacity: 1; transform: scale(1); transition-delay: 200ms; }
+.section-visible .countdown-slot:nth-child(4),
+.invite-hero .countdown-slot:nth-child(4) { opacity: 1; transform: scale(1); transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-reveal,
+  .invite-page .invite-section,
+  .invite-gallery .gallery-tile,
+  .couple-cards .person-card,
+  .event-grid .event-card,
+  .countdown-card .countdown-slot,
+  .editorial-person,
+  .cinematic-person {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+/* =========================================================
+ * Layout: Adat / Cultural — traditional ornament-heavy
+ * ========================================================= */
+.layout-adat { --invite-paper: rgba(255,255,255,.08); }
+.layout-adat .gate-adat { min-height: 100vh; display: grid; place-items: center; padding: 40px; }
+.layout-adat .adat-gate-card { position: relative; max-width: 560px; min-height: 700px; padding: 60px 32px; background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(20,12,4,.85)); border: 2px solid var(--invite-accent); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px; }
+.layout-adat .adat-orn-top { color: var(--invite-accent); margin-bottom: 12px; }
+.layout-adat .adat-orn-bottom { color: var(--invite-accent); margin-top: 12px; transform: rotate(180deg); }
+.layout-adat .adat-eyebrow { color: var(--invite-accent); letter-spacing: .3em; }
+.layout-adat .adat-display { font-size: clamp(44px, 10vw, 88px); display: grid; gap: 4px; }
+.layout-adat .adat-amp { font-family: var(--font-cormorant), Georgia, serif; font-style: italic; color: var(--invite-accent); font-size: .6em; }
+.layout-adat .adat-yth { background: rgba(255,255,255,.06); border: 1px solid var(--invite-accent); padding: 14px 18px; border-radius: 8px; }
+.layout-adat .adat-yth strong { color: var(--invite-accent); font-size: 22px; }
+.layout-adat .adat-date { letter-spacing: .2em; text-transform: uppercase; color: var(--invite-accent); border: 1px solid var(--invite-accent); padding: 12px 20px; }
+.layout-adat .hero-adat { padding: 120px 20px 100px; text-align: center; }
+.layout-adat .adat-hero-orn { color: var(--invite-accent); margin: 0 auto 20px; display: block; opacity: .8; }
+.layout-adat .adat-quote { font-family: var(--font-cormorant), Georgia, serif; font-size: 20px; }
+.layout-adat .section-adat { position: relative; }
+.layout-adat .section-orn-adat { position: absolute; top: 16px; right: 16px; color: var(--invite-accent); opacity: .3; }
+.layout-adat .adat-couple { grid-template-columns: 1fr auto 1fr; gap: 28px; align-items: center; }
+.layout-adat .adat-person { background: var(--invite-paper); border: 1px solid var(--invite-accent); border-radius: 8px; padding: 28px; }
+.layout-adat .adat-person-frame { width: 200px; height: 260px; margin: 0 auto 18px; border-radius: 8px; overflow: hidden; border: 2px solid var(--invite-accent); position: relative; background: rgba(0,0,0,.4); }
+.layout-adat .adat-person-photo { width: 100%; height: 100%; object-fit: cover; }
+.layout-adat .adat-divider { color: var(--invite-accent); display: grid; place-items: center; }
+.layout-adat .gallery-grid-adat { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.layout-adat .adat-tile { border-radius: 8px; overflow: hidden; border: 1px solid var(--invite-accent); aspect-ratio: 3/4; }
+.layout-adat .adat-tile.feature { grid-column: span 2; grid-row: span 2; }
+.layout-adat .footer-adat { padding: 80px 20px 100px; display: grid; place-items: center; gap: 16px; color: var(--invite-accent); }
+
+/* Culture-specific background tints */
+.culture-jawa    { --invite-bg: #0d0a04; --invite-accent: #c8a43a; --invite-paper: rgba(200,164,58,.08); }
+.culture-aceh    { --invite-bg: #040d08; --invite-accent: #2e8b57; --invite-paper: rgba(46,139,87,.08); }
+.culture-batak   { --invite-bg: #0d0404; --invite-accent: #8b1a1a; --invite-paper: rgba(139,26,26,.1); }
+.culture-minang  { --invite-bg: #0d0404; --invite-accent: #cc3333; --invite-paper: rgba(204,51,51,.08); }
+.culture-lampung { --invite-bg: #0d0a04; --invite-accent: #d4a017; --invite-paper: rgba(212,160,23,.08); }
+
+/* Jawa specific — batik pattern overlay */
+.culture-jawa .gate-adat .adat-gate-card { background: linear-gradient(180deg, rgba(12,10,4,.7), rgba(0,0,0,.85)), repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(200,164,58,.04) 20px, rgba(200,164,58,.04) 21px); }
+/* Aceh — green gradient */
+.culture-aceh .gate-adat .adat-gate-card { background: linear-gradient(180deg, rgba(4,13,8,.7), rgba(0,0,0,.85)); border-color: #2e8b57; }
+/* Batak — deep red */
+.culture-batak .gate-adat .adat-gate-card { background: linear-gradient(180deg, rgba(13,4,4,.7), rgba(0,0,0,.85)); border-color: #8b1a1a; }
+.culture-batak .adat-person-frame { border-color: #8b1a1a; }
+/* Minang — vibrant red */
+.culture-minang .gate-adat .adat-gate-card { background: linear-gradient(180deg, rgba(20,4,4,.7), rgba(0,0,0,.85)); border-color: #cc3333; }
+/* Lampung — gold crown feel */
+.culture-lampung .gate-adat .adat-gate-card { background: linear-gradient(180deg, rgba(13,10,4,.7), rgba(0,0,0,.85)); border-color: #d4a017; }
+
+@media (max-width: 860px) {
+  .layout-adat .adat-couple { grid-template-columns: 1fr; }
+  .layout-adat .gallery-grid-adat { grid-template-columns: repeat(2, 1fr); }
+  .layout-adat .adat-tile.feature { grid-column: span 2; grid-row: span 1; }
+}
+@media (max-width: 520px) {
+  .layout-adat .adat-display { font-size: clamp(38px, 10vw, 68px); }
+  .layout-adat .adat-gate-card { padding: 40px 20px; min-height: 600px; }
+}
+
+
+/* Features showcase grid (landing page) */
+.features-showcase { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1120px; margin: 0 auto; }
+.feature-box { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); padding: 28px; }
+.feature-box strong { display: block; font-size: 18px; margin-bottom: 8px; color: var(--gold-2); }
+.feature-box p { color: var(--muted); line-height: 1.7; margin: 0; }
+@media (max-width: 860px) { .features-showcase { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .features-showcase { grid-template-columns: 1fr; } }

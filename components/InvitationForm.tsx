@@ -83,9 +83,7 @@ export function InvitationForm({ template, initial }: Props) {
       }
       toast.push(initial ? "Undangan tersimpan." : "Undangan dibuat.", "success");
 
-      const next = template.tier === "premium" && json.invitation.payment_status !== "paid"
-        ? `/dashboard?unlock=${json.invitation.id}`
-        : `/u/${json.invitation.slug}`;
+      const next = `/u/${json.invitation.slug}`;
       router.push(next);
       router.refresh();
     } catch {
@@ -98,9 +96,7 @@ export function InvitationForm({ template, initial }: Props) {
   return (
     <form className="builder-shell" onSubmit={submit}>
       <aside className="builder-sidebar">
-        <span className={`badge ${template.tier === "premium" ? "badge-premium" : "badge-free"}`}>
-          {template.tier === "premium" ? "Premium Ultra" : "Gratis"}
-        </span>
+        <span className="badge badge-premium">Ultra Premium Gratis</span>
         <h1>{initial ? "Edit undangan" : "Buat undangan"}</h1>
         <p>Template: <strong>{template.name}</strong></p>
         <p className="muted">Foto maksimal 8: pasangan, pengantin, dan orang tua kedua belah pihak.</p>
@@ -129,9 +125,7 @@ export function InvitationForm({ template, initial }: Props) {
           ))}
         </ol>
 
-        {template.tier === "premium" ? (
-          <div className="premium-note">Premium publish setelah pembayaran iPaymu sukses (atau custom manual via admin).</div>
-        ) : null}
+        <div className="premium-note">Semua template ultra premium — 100% gratis, tanpa batasan.</div>
       </aside>
 
       <main className="builder-form">
@@ -228,7 +222,7 @@ export function InvitationForm({ template, initial }: Props) {
             </label>
             <div className="muted" style={{ marginTop: 12 }}>
               Status sekarang: <strong>{isPublished ? "Akan di-publish" : "Draft"}</strong>
-              {template.tier === "premium" ? " — premium butuh pembayaran sebelum benar-benar online." : null}
+              {null}
             </div>
           </section>
         ) : null}

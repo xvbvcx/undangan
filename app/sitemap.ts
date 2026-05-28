@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/templates/${template.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: template.tier === "premium" ? 0.7 : 0.6
+      priority: 0.7
     }))
   ];
 }
