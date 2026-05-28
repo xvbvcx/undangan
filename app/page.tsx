@@ -25,8 +25,8 @@ export default function HomePage() {
           </div>
         </div>
         <div className="hero-showcase">
-          <div className="luxury-phone floating-a"><span>Premium</span><h2>A & R</h2><p>Ultra Exclusive</p></div>
-          <div className="luxury-phone small floating-b"><span>Gratis</span><h2>N & D</h2><p>Profesional</p></div>
+          <div className="luxury-phone floating-a"><span>Premium</span><h2>A &amp; R</h2><p>Ultra Exclusive</p></div>
+          <div className="luxury-phone small floating-b"><span>Gratis</span><h2>N &amp; D</h2><p>Profesional</p></div>
           <div className="gold-ring" />
         </div>
       </section>
@@ -34,20 +34,20 @@ export default function HomePage() {
       <section className="section difference-section">
         <div className="section-head">
           <span className="eyebrow">Perbedaan signifikan</span>
-          <h2>Standar tetap bagus. Premium harus bikin user mikir, “ini beda kelas”.</h2>
+          <h2>Standar tetap bagus. Premium dibuat agar terasa beda kelas.</h2>
         </div>
         <div className="comparison-grid">
           <div className="plan-card free-plan">
             <span className="badge badge-free">Gratis</span>
             <h3>Standar Profesional</h3>
-            <p>Template cantik, mobile, RSVP, countdown, galeri, backsound, dan animasi loading.</p>
+            <p>Template cantik, mobile-first, RSVP, countdown, galeri, backsound, dan animasi loading.</p>
             <ul><li>20 template standar</li><li>Watermark Nikah Kilat</li><li>Galeri maksimal 8 foto</li><li>Masa aktif 30 hari</li></ul>
           </div>
           <div className="plan-card premium-plan" id="harga">
             <span className="badge badge-premium">Premium Ultra Exclusive</span>
             <h3>{formatRupiah(premiumPrice)}</h3>
-            <p>Visual lebih mewah, parallax cinematic, no watermark, prioritas desain, dan opsi custom manual via admin.</p>
-            <ul><li>20 template premium ultra</li><li>No watermark</li><li>Animasi lebih cinematic</li><li>Unlock otomatis iPaymu</li><li>Custom manual via WhatsApp admin</li></ul>
+            <p>Visual lebih mewah, palette berbeda per template, no watermark, prioritas desain, dan opsi custom manual via admin.</p>
+            <ul><li>20 template premium ultra</li><li>No watermark</li><li>Animasi cinematic / royal</li><li>Unlock otomatis iPaymu</li><li>Custom manual via WhatsApp admin</li></ul>
           </div>
         </div>
       </section>
