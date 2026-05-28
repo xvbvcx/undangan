@@ -52,10 +52,21 @@ export async function POST(request: Request) {
     .select("*")
     .single();
   if (error) {
-    const userFacing = error.code === "23505"
-      ? "Slug sudah dipakai. Pilih yang lain."
-      : "Gagal menyimpan undangan.";
-    return NextResponse.json({ error: userFacing }, { status: 400 });
+    // Surface the full Postgres error in Vercel logs so issues like
+    // schema-not-applied or RLS rejection are diagnosable at a glance.
+    console.error("[invitations.create] supabase error", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+      userId: user.id
+    });
+    let userFacing = "Gagal menyimpan undangan.";
+    if (error.code === "23505") userFacing = "Slug sudah dipakai. Pilih yang lain.";
+    else if (error.code === "42P01") userFacing = "Database belum siap. Jalankan supabase/schema.sql di SQL Editor.";
+    else if (error.code === "42501") userFacing = "Akses ditolak (RLS). Logout dan login ulang.";
+    else if (error.message) userFacing = `Gagal menyimpan: ${error.message}`;
+    return NextResponse.json({ error: userFacing, code: error.code }, { status: 400 });
   }
   return NextResponse.json({ invitation });
 }
