@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { isSafeAudioUrl, isSafeExternalUrl, isValidSlug, slugReason } from "@/lib/sanitize";
+import { isSafeExternalUrl, isValidSlug, slugReason } from "@/lib/sanitize";
 
 const safeText = (max: number) =>
   z.string()
@@ -14,19 +14,16 @@ const safeUrlField = z.string().optional().transform((value) => {
   return isSafeExternalUrl(value) ? value.trim() : "";
 });
 
-const safeAudioUrlField = z.string().optional().transform((value) => {
-  if (!value) return "";
-  return isSafeAudioUrl(value) ? value.trim() : "";
-});
-
 const optionalDate = z.string().optional().transform((value) => {
   if (!value) return "";
-  // Accept yyyy-mm-dd or full ISO. Reject anything that doesn't parse.
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) return "";
   return value.trim().slice(0, 32);
 });
 
+// Customer-facing schema. `musicUrl` is intentionally omitted — music is now
+// admin-managed per template. The schema uses `passthrough` so legacy rows
+// that still carry `musicUrl` aren't rejected on edit.
 export const invitationDataSchema = z.object({
   groomName: safeText(80),
   groomNickname: optionalSafeText(40),
@@ -54,9 +51,8 @@ export const invitationDataSchema = z.object({
   giftAccount: optionalSafeText(80),
   giftName: optionalSafeText(80),
   giftQris: safeUrlField,
-  musicUrl: safeAudioUrlField,
   themeColor: optionalSafeText(24)
-}).strict();
+}).passthrough();
 
 export const slugSchema = z.string().transform((value) => value.trim().toLowerCase()).superRefine((value, ctx) => {
   const reason = slugReason(value);
@@ -121,6 +117,26 @@ export const adminProfileActionSchema = z.object({
   userId: z.string().uuid()
 });
 
+// Admin sets/clears music for a given template.
+export const adminTemplateMusicSchema = z.object({
+  templateSlug: z.string().min(3).max(64),
+  musicUrl: z.string().max(500).refine((value) => {
+    if (!value) return false;
+    if (value.startsWith("/audio/")) return true;
+    try {
+      const parsed = new URL(value);
+      return parsed.protocol === "https:" || parsed.protocol === "http:";
+    } catch {
+      return false;
+    }
+  }, "URL musik harus http(s) atau path /audio/..."),
+  label: optionalSafeText(120)
+});
+
+export const adminTemplateMusicDeleteSchema = z.object({
+  templateSlug: z.string().min(3).max(64)
+});
+
 export function reasonFromZod(error: z.ZodError): string {
   const issue = error.issues[0];
   if (!issue) return "Data tidak valid.";
@@ -128,5 +144,4 @@ export function reasonFromZod(error: z.ZodError): string {
   return path ? `${path}: ${issue.message}` : issue.message;
 }
 
-// Re-export for convenience.
 export { isValidSlug };

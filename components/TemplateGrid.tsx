@@ -20,7 +20,7 @@ export function TemplateGrid({ templates }: { templates: TemplateMeta[] }) {
         <button onClick={() => setFilter("premium")} className={filter === "premium" ? "active" : ""}>20 Premium</button>
       </div>
       <div className="template-grid">
-        {filtered.map((template) => <TemplateCard key={template.slug} template={template} compact />)}
+        {filtered.map((template) => <TemplateCard key={template.slug} template={template} />)}
       </div>
     </section>
   );

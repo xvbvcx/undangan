@@ -22,7 +22,6 @@ async function loadInvitation(slug: string) {
     .maybeSingle();
   if (rawInvitation) return { invitation: rawInvitation as InvitationRecord, redirect: null };
 
-  // Fall back to slug history so previously shared links keep resolving.
   const { data: history } = await supabase
     .from("invitation_slug_history")
     .select("invitation_id")
@@ -37,6 +36,20 @@ async function loadInvitation(slug: string) {
     if (current?.is_published) return { invitation: null, redirect: current.slug };
   }
   return { invitation: null, redirect: null };
+}
+
+async function loadMusicOverride(templateSlug: string): Promise<string | null> {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("template_music")
+      .select("music_url")
+      .eq("template_slug", templateSlug)
+      .maybeSingle();
+    return data?.music_url ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -86,12 +99,15 @@ export default async function PublicInvitationPage({ params, searchParams }: Pag
   const guestName = sanitizeText(rawGuest ?? "", 80);
   const guestSlug = sanitizeText(rawGuestSlug ?? "", 80);
 
+  const musicOverride = await loadMusicOverride(template.slug);
+
   return (
     <InvitationRenderer
       invitation={invitation}
       template={template}
       guestName={guestName || undefined}
       guestSlug={guestSlug || undefined}
+      musicOverride={musicOverride}
     />
   );
 }
