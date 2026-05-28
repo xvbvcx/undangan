@@ -210,6 +210,30 @@ $$ language plpgsql security definer;
 revoke all on function public.increment_invitation_view(uuid) from public;
 grant execute on function public.increment_invitation_view(uuid) to anon, authenticated;
 
+-- Admin check helper. SECURITY DEFINER + bypasses caller's RLS so policies
+-- can call this without recursing back into themselves. The previous
+-- design embedded `exists (select 1 from public.profiles ...)` directly
+-- inside the `profiles self read` policy, which caused
+-- "infinite recursion detected in policy for relation profiles".
+create or replace function public.is_admin(uid uuid)
+returns boolean
+language plpgsql
+security definer
+set search_path = public, pg_temp
+stable
+as $$
+declare
+  result boolean;
+begin
+  if uid is null then return false; end if;
+  select (role = 'admin') into result from public.profiles where id = uid;
+  return coalesce(result, false);
+end;
+$$;
+
+revoke all on function public.is_admin(uuid) from public;
+grant execute on function public.is_admin(uuid) to anon, authenticated;
+
 -- =========================================================
 -- ROW LEVEL SECURITY
 -- =========================================================
@@ -245,7 +269,7 @@ drop policy if exists "owner read page views" on public.page_views;
 drop policy if exists "admins read audit" on public.audit_logs;
 
 create policy "profiles self read" on public.profiles
-  for select using (auth.uid() = id or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (auth.uid() = id or public.is_admin(auth.uid()));
 create policy "profiles self update" on public.profiles
   for update using (auth.uid() = id);
 
@@ -254,7 +278,7 @@ create policy "users manage own invitations" on public.invitations
 create policy "public read published invitations" on public.invitations
   for select using (is_published = true and (active_until is null or active_until > now()));
 create policy "admins read all invitations" on public.invitations
-  for select using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (public.is_admin(auth.uid()));
 
 create policy "public read slug history" on public.invitation_slug_history
   for select using (true);
@@ -262,7 +286,7 @@ create policy "users read own slug history" on public.invitation_slug_history
   for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()));
 
 create policy "users read own orders" on public.orders
-  for select using (auth.uid() = user_id or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (auth.uid() = user_id or public.is_admin(auth.uid()));
 create policy "users create own orders" on public.orders
   for insert with check (auth.uid() = user_id);
 create policy "users update own orders" on public.orders
@@ -271,7 +295,7 @@ create policy "users update own orders" on public.orders
 create policy "public create rsvp" on public.rsvps
   for insert with check (true);
 create policy "owner read rsvp" on public.rsvps
-  for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()) or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()) or public.is_admin(auth.uid()));
 create policy "owner update rsvp" on public.rsvps
   for update using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()));
 create policy "owner delete rsvp" on public.rsvps
@@ -280,17 +304,17 @@ create policy "owner delete rsvp" on public.rsvps
 create policy "public create guestbook" on public.guestbook
   for insert with check (true);
 create policy "owner read guestbook" on public.guestbook
-  for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()) or is_approved = true or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()) or is_approved = true or public.is_admin(auth.uid()));
 create policy "owner update guestbook" on public.guestbook
   for update using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()));
 create policy "owner delete guestbook" on public.guestbook
   for delete using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()));
 
 create policy "owner read page views" on public.page_views
-  for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()) or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (exists (select 1 from public.invitations i where i.id = invitation_id and i.user_id = auth.uid()) or public.is_admin(auth.uid()));
 
 create policy "admins read audit" on public.audit_logs
-  for select using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+  for select using (public.is_admin(auth.uid()));
 
 -- =========================================================
 -- STORAGE
