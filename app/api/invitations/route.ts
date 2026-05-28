@@ -52,10 +52,20 @@ export async function POST(request: Request) {
     .select("*")
     .single();
   if (error) {
-    const userFacing = error.code === "23505"
-      ? "Slug sudah dipakai. Pilih yang lain."
-      : "Gagal menyimpan undangan.";
-    return NextResponse.json({ error: userFacing }, { status: 400 });
+    // Log the full Supabase error to the server console so it's visible
+    // in Vercel function logs when something fails in production.
+    console.error("[invitations.create] supabase error", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint
+    });
+    let userFacing = "Gagal menyimpan undangan.";
+    if (error.code === "23505") userFacing = "Slug sudah dipakai. Pilih yang lain.";
+    else if (error.code === "42P01") userFacing = "Database belum siap. Jalankan supabase/schema.sql.";
+    else if (error.code === "42501") userFacing = "Akses ditolak (RLS). Cek session login.";
+    else if (error.message) userFacing = `Gagal menyimpan: ${error.message}`;
+    return NextResponse.json({ error: userFacing, code: error.code }, { status: 400 });
   }
   return NextResponse.json({ invitation });
 }
