@@ -11,7 +11,11 @@ export type TemplateLayout =
   | "editorial"
   | "botanical"
   | "luxury"
-  | "adat";
+  | "adat"
+  | "sidebar"
+  | "postcard"
+  | "mosaic"
+  | "parallax";
 
 export type TemplateFontFamily =
   | "cormorant"

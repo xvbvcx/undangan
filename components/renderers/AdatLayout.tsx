@@ -109,6 +109,14 @@ export function AdatLayout({ invitation, template, data, preview,
         </div>
       </section>
 
+      {data.story ? (
+        <section className="invite-section story-section section-adat">
+          <span className="eyebrow adat-eyebrow">Love Story</span>
+          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
+          <p className="story-text">{data.story}</p>
+        </section>
+      ) : null}
+
       {gallery.length ? (
         <section className="invite-section gallery-section section-adat">
           <span className="eyebrow adat-eyebrow">Galeri</span>
@@ -120,14 +128,6 @@ export function AdatLayout({ invitation, template, data, preview,
               </div>
             ))}
           </div>
-        </section>
-      ) : null}
-
-      {data.story ? (
-        <section className="invite-section story-section section-adat">
-          <span className="eyebrow adat-eyebrow">Love Story</span>
-          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
-          <p className="story-text">{data.story}</p>
         </section>
       ) : null}
 

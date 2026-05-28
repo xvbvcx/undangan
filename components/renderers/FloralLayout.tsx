@@ -105,6 +105,15 @@ export function FloralLayout({ invitation, template, data, preview, guestName, g
         </div>
       </section>
 
+      {data.story ? (
+        <section className="invite-section story-section section-floral">
+          <RoseCornerOrnament className="section-orn top-right" size={100} />
+          <span className="eyebrow">Love Story</span>
+          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
+          <p className="story-text">{data.story}</p>
+        </section>
+      ) : null}
+
       {gallery.length ? (
         <section className="invite-section gallery-section">
           <span className="eyebrow">Our Moments</span>
@@ -116,15 +125,6 @@ export function FloralLayout({ invitation, template, data, preview, guestName, g
               </div>
             ))}
           </div>
-        </section>
-      ) : null}
-
-      {data.story ? (
-        <section className="invite-section story-section section-floral">
-          <RoseCornerOrnament className="section-orn top-right" size={100} />
-          <span className="eyebrow">Love Story</span>
-          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
-          <p className="story-text">{data.story}</p>
         </section>
       ) : null}
 

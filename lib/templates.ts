@@ -24,7 +24,7 @@ const DESCRIPTION = "Template ultra premium exclusive — gratis tanpa batas. An
 
 
 // =========================================================
-// CLASSIC (10 templates)
+// CLASSIC (8 templates — 2 promoted to sidebar / postcard)
 // =========================================================
 const classicTemplates: TemplateConfig[] = [
   { name: "Seruni Classic", category: "Classic Romantic", palette: "blush", mood: "romantis", layout: "classic", fontFamily: "playfair", coverStyle: "arch", ornament: "rose", accent: "#c78383" },
@@ -34,9 +34,32 @@ const classicTemplates: TemplateConfig[] = [
   { name: "Rona Peach", category: "Classic Sweet", palette: "peach", mood: "manis", layout: "classic", fontFamily: "playfair", coverStyle: "ornament", ornament: "rose", accent: "#e89a72" },
   { name: "Puspa Ivory", category: "Classic Pure", palette: "pearl", mood: "suci", layout: "classic", fontFamily: "italiana", coverStyle: "arch", ornament: "geometric", accent: "#f3e6c9" },
   { name: "Ratna Gold", category: "Classic Luxe", palette: "ivory-gold", mood: "mewah", layout: "classic", fontFamily: "cinzel", coverStyle: "ornament", ornament: "deco-frame", accent: "#d7b46a" },
-  { name: "Kenanga Dusk", category: "Classic Dusk", palette: "burgundy", mood: "dramatis", layout: "classic", fontFamily: "playfair", coverStyle: "ornament", ornament: "rose", accent: "#d36b78" },
   { name: "Anggrek Mauve", category: "Classic Mauve", palette: "rose", mood: "anggun", layout: "classic", fontFamily: "cormorant", coverStyle: "arch", ornament: "rose", accent: "#b87da8" },
-  { name: "Dahlia Rust", category: "Classic Autumn", palette: "terracotta", mood: "hangat", layout: "classic", fontFamily: "bodoni", coverStyle: "ornament", ornament: "leaves", accent: "#c4784a" },
+];
+
+
+// =========================================================
+// SIDEBAR (templateku.id-style sticky sidebar — 6 templates)
+// =========================================================
+const sidebarTemplates: TemplateConfig[] = [
+  { name: "Kenanga Dusk", category: "Sidebar Dusk", palette: "burgundy", mood: "dramatis", layout: "sidebar", fontFamily: "playfair", coverStyle: "photo", ornament: "rose", accent: "#d36b78" },
+  { name: "Dahlia Rust", category: "Sidebar Autumn", palette: "terracotta", mood: "hangat", layout: "sidebar", fontFamily: "bodoni", coverStyle: "photo", ornament: "leaves", accent: "#c4784a" },
+  { name: "Aurelia Modern", category: "Sidebar Modern", palette: "champagne", mood: "modern", layout: "sidebar", fontFamily: "italiana", coverStyle: "photo", ornament: "geometric", accent: "#e7c890" },
+  { name: "Selene Pearl", category: "Sidebar Pearl", palette: "pearl", mood: "suci", layout: "sidebar", fontFamily: "cormorant", coverStyle: "photo", ornament: "geometric", accent: "#f3e6c9" },
+  { name: "Aria Serif", category: "Sidebar Serif", palette: "cream", mood: "klasik", layout: "sidebar", fontFamily: "playfair", coverStyle: "photo", ornament: "rose", accent: "#c8a36a" },
+  { name: "Verde Fresco", category: "Sidebar Botanical", palette: "sage", mood: "natural", layout: "sidebar", fontFamily: "italiana", coverStyle: "photo", ornament: "leaves", accent: "#88a07c" },
+];
+
+
+// =========================================================
+// POSTCARD (5 templates)
+// =========================================================
+const postcardTemplates: TemplateConfig[] = [
+  { name: "Pos Kenanga", category: "Postcard Vintage", palette: "cream", mood: "nostalgia", layout: "postcard", fontFamily: "playfair", coverStyle: "split", ornament: "rose", accent: "#c8a36a" },
+  { name: "Pos Senja", category: "Postcard Sunset", palette: "peach", mood: "hangat", layout: "postcard", fontFamily: "cormorant", coverStyle: "split", ornament: "leaves", accent: "#e89a72" },
+  { name: "Pos Sage", category: "Postcard Garden", palette: "sage", mood: "natural", layout: "postcard", fontFamily: "italiana", coverStyle: "split", ornament: "leaves", accent: "#88a07c" },
+  { name: "Pos Navy", category: "Postcard Ocean", palette: "navy", mood: "kalem", layout: "postcard", fontFamily: "bodoni", coverStyle: "split", ornament: "wave", accent: "#25415f" },
+  { name: "Pos Rose", category: "Postcard Rose", palette: "blush", mood: "romantis", layout: "postcard", fontFamily: "dancing", coverStyle: "split", ornament: "rose", accent: "#d999a3" },
 ];
 
 
@@ -118,32 +141,48 @@ const royalTemplates: TemplateConfig[] = [
 
 
 // =========================================================
-// CINEMATIC (8 templates)
+// CINEMATIC (5 templates — 3 promoted to parallax)
 // =========================================================
 const cinematicTemplates: TemplateConfig[] = [
   { name: "Monarch Pearl", category: "Cinematic Night", palette: "midnight", mood: "cinematic", layout: "cinematic", fontFamily: "playfair", coverStyle: "photo", ornament: "stars", accent: "#98a2c2" },
   { name: "Eternal Diamond", category: "Cinematic Marble", palette: "marble", mood: "cinematic", layout: "cinematic", fontFamily: "bodoni", coverStyle: "photo", ornament: "geometric", accent: "#c5cad2" },
-  { name: "Regal Moonlight", category: "Cinematic Moon", palette: "midnight", mood: "cinematic", layout: "cinematic", fontFamily: "playfair", coverStyle: "photo", ornament: "stars", accent: "#a3aed1" },
   { name: "The Heirloom", category: "Cinematic Heritage", palette: "onyx", mood: "cinematic", layout: "cinematic", fontFamily: "cormorant", coverStyle: "photo", ornament: "deco-frame", accent: "#bda474" },
-  { name: "Luxe Aurora", category: "Cinematic Gold", palette: "ivory-gold", mood: "cinematic", layout: "cinematic", fontFamily: "italiana", coverStyle: "photo", ornament: "stars", accent: "#f1dfb8" },
   { name: "Silver Screen", category: "Cinematic Silver", palette: "marble", mood: "cinematic", layout: "cinematic", fontFamily: "bodoni", coverStyle: "photo", ornament: "geometric", accent: "#b8c0cc" },
-  { name: "Grand Premiere", category: "Cinematic Premiere", palette: "black-gold", mood: "cinematic", layout: "cinematic", fontFamily: "cinzel", coverStyle: "photo", ornament: "deco-frame", accent: "#e8c872" },
   { name: "Noir Romance", category: "Cinematic Dark", palette: "onyx", mood: "cinematic", layout: "cinematic", fontFamily: "playfair", coverStyle: "photo", ornament: "stars", accent: "#a89070" },
 ];
 
 
 // =========================================================
-// LUXURY (8 templates)
+// PARALLAX (full-bleed scenes — 4 templates)
+// =========================================================
+const parallaxTemplates: TemplateConfig[] = [
+  { name: "Regal Moonlight", category: "Parallax Moon", palette: "midnight", mood: "cinematic", layout: "parallax", fontFamily: "playfair", coverStyle: "photo", ornament: "stars", accent: "#a3aed1" },
+  { name: "Luxe Aurora", category: "Parallax Aurora", palette: "ivory-gold", mood: "cinematic", layout: "parallax", fontFamily: "italiana", coverStyle: "photo", ornament: "stars", accent: "#f1dfb8" },
+  { name: "Grand Premiere", category: "Parallax Premiere", palette: "black-gold", mood: "cinematic", layout: "parallax", fontFamily: "cinzel", coverStyle: "photo", ornament: "deco-frame", accent: "#e8c872" },
+  { name: "Skyline Romance", category: "Parallax Skyline", palette: "navy", mood: "cinematic", layout: "parallax", fontFamily: "bodoni", coverStyle: "photo", ornament: "wave", accent: "#9fc1d8" },
+];
+
+
+// =========================================================
+// LUXURY (5 templates — 3 promoted to mosaic)
 // =========================================================
 const luxuryTemplates: TemplateConfig[] = [
   { name: "Celestial Bloom", category: "Luxury Floral", palette: "ivory-gold", mood: "mewah", layout: "luxury", fontFamily: "cormorant", coverStyle: "ornament", ornament: "rose", accent: "#f1dfb8" },
   { name: "Palace Garden", category: "Luxury Garden", palette: "emerald", mood: "majestic", layout: "luxury", fontFamily: "playfair", coverStyle: "arch", ornament: "leaves", accent: "#6ed2a5" },
   { name: "Majestic Rose", category: "Luxury Rose", palette: "burgundy", mood: "dramatis", layout: "luxury", fontFamily: "playfair", coverStyle: "ornament", ornament: "rose", accent: "#d36b78" },
-  { name: "Grand Chateau", category: "Luxury Estate", palette: "champagne", mood: "elegan", layout: "luxury", fontFamily: "cormorant", coverStyle: "arch", ornament: "leaves", accent: "#e7c890" },
-  { name: "Elysian Ivory", category: "Luxury Pearl", palette: "pearl", mood: "suci", layout: "luxury", fontFamily: "italiana", coverStyle: "ornament", ornament: "deco-frame", accent: "#f3e6c9" },
   { name: "Versailles", category: "Luxury Grand", palette: "ivory-gold", mood: "grand", layout: "luxury", fontFamily: "cinzel", coverStyle: "ornament", ornament: "deco-frame", accent: "#d4b06a" },
-  { name: "Monte Carlo", category: "Luxury Riviera", palette: "royal-blue", mood: "mewah", layout: "luxury", fontFamily: "bodoni", coverStyle: "arch", ornament: "stars", accent: "#7da4cc" },
   { name: "Dubai Gold", category: "Luxury Opulent", palette: "black-gold", mood: "majestic", layout: "luxury", fontFamily: "cinzel", coverStyle: "ornament", ornament: "deco-frame", accent: "#e8c462" },
+];
+
+
+// =========================================================
+// MOSAIC (4 templates)
+// =========================================================
+const mosaicTemplates: TemplateConfig[] = [
+  { name: "Grand Chateau", category: "Mosaic Estate", palette: "champagne", mood: "elegan", layout: "mosaic", fontFamily: "cormorant", coverStyle: "photo", ornament: "leaves", accent: "#e7c890" },
+  { name: "Elysian Ivory", category: "Mosaic Pearl", palette: "pearl", mood: "suci", layout: "mosaic", fontFamily: "italiana", coverStyle: "photo", ornament: "deco-frame", accent: "#f3e6c9" },
+  { name: "Monte Carlo", category: "Mosaic Riviera", palette: "royal-blue", mood: "mewah", layout: "mosaic", fontFamily: "bodoni", coverStyle: "photo", ornament: "stars", accent: "#7da4cc" },
+  { name: "Mosaic Bloom", category: "Mosaic Blossom", palette: "rose", mood: "romantis", layout: "mosaic", fontFamily: "playfair", coverStyle: "photo", ornament: "rose", accent: "#dc8aa6" },
 ];
 
 
@@ -164,13 +203,17 @@ const adatTemplates: TemplateConfig[] = [
 // =========================================================
 const allConfigs: TemplateConfig[] = [
   ...classicTemplates,
+  ...sidebarTemplates,
+  ...postcardTemplates,
   ...floralTemplates,
   ...botanicalTemplates,
   ...minimalTemplates,
   ...editorialTemplates,
   ...royalTemplates,
   ...cinematicTemplates,
+  ...parallaxTemplates,
   ...luxuryTemplates,
+  ...mosaicTemplates,
   ...adatTemplates
 ];
 
@@ -183,7 +226,11 @@ const DEFAULT_MUSIC_BY_LAYOUT: Record<TemplateLayout, string> = {
   royal: "/audio/royal-opening-chime.wav",
   cinematic: "/audio/royal-opening-chime.wav",
   luxury: "/audio/royal-opening-chime.wav",
-  adat: "/audio/royal-opening-chime.wav"
+  adat: "/audio/royal-opening-chime.wav",
+  sidebar: "/audio/soft-wedding-chime.wav",
+  postcard: "/audio/garden-love-chime.wav",
+  mosaic: "/audio/royal-opening-chime.wav",
+  parallax: "/audio/royal-opening-chime.wav"
 };
 
 export const templates: TemplateMeta[] = allConfigs.map((cfg, index) => ({

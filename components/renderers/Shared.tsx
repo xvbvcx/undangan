@@ -78,7 +78,7 @@ export function MusicToggle({ src }: { src: string | null }) {
         aria-pressed={on}
         aria-label={on ? "Matikan musik" : "Putar musik"}
       >
-        <span className="music-icon" aria-hidden>{on ? "❚❚" : "▶"}</span>
+        <span className="music-icon" aria-hidden>{on ? "❚❚" : "♪"}</span>
         <span className="sr-only">Musik</span>
       </button>
     </>

@@ -96,6 +96,41 @@ function PreviewBody({ template }: { template: TemplateMeta }) {
           <Ornament kind="wave" size={64} />
         </>
       );
+    case "sidebar":
+      return (
+        <>
+          <Ornament kind={template.ornament} size={36} />
+          <span className="mini-pill" style={{ letterSpacing: ".25em", textTransform: "uppercase", fontSize: 9 }}>Sticky Sidebar</span>
+          <h3>A &amp; R</h3>
+          <p style={{ fontSize: 10 }}>Cover · Quote · Couple · Event</p>
+        </>
+      );
+    case "postcard":
+      return (
+        <>
+          <span className="mini-pill" style={{ letterSpacing: ".3em", textTransform: "uppercase", fontSize: 9, color: "#b58348" }}>Postcard</span>
+          <h3 style={{ fontSize: 22 }}>A &amp; R</h3>
+          <p style={{ fontStyle: "italic", fontSize: 11 }}>Wish you were here</p>
+        </>
+      );
+    case "mosaic":
+      return (
+        <>
+          <Ornament kind={template.ornament} size={40} />
+          <span className="mini-pill" style={{ letterSpacing: ".25em", textTransform: "uppercase", fontSize: 9 }}>Mosaic</span>
+          <h3>A &amp; R</h3>
+          <p style={{ fontSize: 10 }}>Photo Mosaic</p>
+        </>
+      );
+    case "parallax":
+      return (
+        <>
+          <Ornament kind="stars" size={36} />
+          <span className="mini-pill" style={{ color: "rgba(255,255,255,.7)", letterSpacing: ".4em", textTransform: "uppercase", fontSize: 9 }}>Parallax</span>
+          <h3 style={{ color: "white", fontSize: 24 }}>A &amp; R</h3>
+          <p style={{ color: "rgba(255,255,255,.6)", fontSize: 10 }}>Cinematic scenes</p>
+        </>
+      );
     case "adat":
       return (
         <>
