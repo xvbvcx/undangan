@@ -110,6 +110,14 @@ export function EditorialLayout({ invitation, template, data, preview, guestName
         </div>
       </section>
 
+      {data.story ? (
+        <section className="invite-section story-section section-editorial">
+          <span className="eyebrow">04 — Love Story</span>
+          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
+          <p className="story-text editorial-story">{data.story}</p>
+        </section>
+      ) : null}
+
       {gallery.length ? (
         <section className="invite-section gallery-section section-editorial">
           <span className="eyebrow">03 — The Gallery</span>
@@ -121,14 +129,6 @@ export function EditorialLayout({ invitation, template, data, preview, guestName
               </div>
             ))}
           </div>
-        </section>
-      ) : null}
-
-      {data.story ? (
-        <section className="invite-section story-section section-editorial">
-          <span className="eyebrow">04 — Love Story</span>
-          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
-          <p className="story-text editorial-story">{data.story}</p>
         </section>
       ) : null}
 

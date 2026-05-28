@@ -105,6 +105,14 @@ export function CinematicLayout({ invitation, template, data, preview, guestName
         </div>
       </section>
 
+      {data.story ? (
+        <section className="invite-section story-section section-cinematic">
+          <span className="eyebrow cinematic-eyebrow">Love Story</span>
+          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
+          <p className="story-text cinematic-story">{data.story}</p>
+        </section>
+      ) : null}
+
       {gallery.length ? (
         <section className="invite-section gallery-section">
           <span className="eyebrow cinematic-eyebrow">Cinematic Moments</span>
@@ -119,14 +127,6 @@ export function CinematicLayout({ invitation, template, data, preview, guestName
               </div>
             ))}
           </div>
-        </section>
-      ) : null}
-
-      {data.story ? (
-        <section className="invite-section story-section section-cinematic">
-          <span className="eyebrow cinematic-eyebrow">Love Story</span>
-          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
-          <p className="story-text cinematic-story">{data.story}</p>
         </section>
       ) : null}
 

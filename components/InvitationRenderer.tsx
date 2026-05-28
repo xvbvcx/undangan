@@ -12,6 +12,10 @@ import { RoyalLayout } from "@/components/renderers/RoyalLayout";
 import { CinematicLayout } from "@/components/renderers/CinematicLayout";
 import { EditorialLayout } from "@/components/renderers/EditorialLayout";
 import { AdatLayout } from "@/components/renderers/AdatLayout";
+import { SidebarLayout } from "@/components/renderers/SidebarLayout";
+import { PostcardLayout } from "@/components/renderers/PostcardLayout";
+import { MosaicLayout } from "@/components/renderers/MosaicLayout";
+import { ParallaxLayout } from "@/components/renderers/ParallaxLayout";
 import type { LayoutProps } from "@/components/renderers/types";
 
 type Props = {
@@ -43,6 +47,10 @@ function LayoutDispatcher(props: LayoutProps) {
     case "cinematic": return <CinematicLayout {...props} />;
     case "editorial": return <EditorialLayout {...props} />;
     case "adat":      return <AdatLayout {...props} />;
+    case "sidebar":   return <SidebarLayout {...props} />;
+    case "postcard":  return <PostcardLayout {...props} />;
+    case "mosaic":    return <MosaicLayout {...props} />;
+    case "parallax":  return <ParallaxLayout {...props} />;
     default:          return <ClassicLayout {...props} />;
   }
 }

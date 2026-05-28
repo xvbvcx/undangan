@@ -103,6 +103,14 @@ export function RoyalLayout({ invitation, template, data, preview, guestName, gu
         </div>
       </section>
 
+      {data.story ? (
+        <section className="invite-section story-section section-royal">
+          <span className="eyebrow royal-eyebrow">— Love Story —</span>
+          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
+          <p className="story-text royal-story">{data.story}</p>
+        </section>
+      ) : null}
+
       {gallery.length ? (
         <section className="invite-section gallery-section section-royal">
           <span className="eyebrow royal-eyebrow">— Our Moments —</span>
@@ -114,14 +122,6 @@ export function RoyalLayout({ invitation, template, data, preview, guestName, gu
               </div>
             ))}
           </div>
-        </section>
-      ) : null}
-
-      {data.story ? (
-        <section className="invite-section story-section section-royal">
-          <span className="eyebrow royal-eyebrow">— Love Story —</span>
-          <h2 className="layout-display section-title">{data.storyTitle || "Cerita Kami"}</h2>
-          <p className="story-text royal-story">{data.story}</p>
         </section>
       ) : null}
 

@@ -4,10 +4,11 @@ import { useMemo, useState } from "react";
 import { TemplateCard } from "@/components/TemplateCard";
 import type { TemplateMeta } from "@/lib/types";
 
-type FilterKey = "all" | "classic" | "floral" | "botanical" | "minimal" | "editorial" | "royal" | "cinematic" | "luxury" | "adat";
+type FilterKey = "all" | "classic" | "sidebar" | "floral" | "botanical" | "minimal" | "editorial" | "royal" | "cinematic" | "luxury" | "postcard" | "mosaic" | "parallax" | "adat";
 
 const FILTERS: { key: FilterKey; label: string }[] = [
   { key: "all", label: "Semua 75+" },
+  { key: "sidebar", label: "Sidebar" },
   { key: "classic", label: "Classic" },
   { key: "floral", label: "Floral" },
   { key: "botanical", label: "Botanical" },
@@ -16,6 +17,9 @@ const FILTERS: { key: FilterKey; label: string }[] = [
   { key: "royal", label: "Royal" },
   { key: "cinematic", label: "Cinematic" },
   { key: "luxury", label: "Luxury" },
+  { key: "postcard", label: "Postcard" },
+  { key: "mosaic", label: "Mosaic" },
+  { key: "parallax", label: "Parallax" },
   { key: "adat", label: "Adat Nusantara" },
 ];
 
