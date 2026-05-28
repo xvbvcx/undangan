@@ -122,7 +122,7 @@ export function AdminMusicManager({ templates }: { templates: TemplateMeta[] }) 
           Template
           <select value={templateSlug} onChange={(e) => setTemplateSlug(e.target.value)}>
             {templates.map((tpl) => (
-              <option key={tpl.slug} value={tpl.slug}>{tpl.tier === "premium" ? "★ " : ""}{tpl.name} — {tpl.slug}</option>
+              <option key={tpl.slug} value={tpl.slug}>{tpl.culture ? `🏛 ` : "★ "}{tpl.name} — {tpl.slug}</option>
             ))}
           </select>
         </label>

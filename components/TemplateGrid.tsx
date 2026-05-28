@@ -4,20 +4,47 @@ import { useMemo, useState } from "react";
 import { TemplateCard } from "@/components/TemplateCard";
 import type { TemplateMeta } from "@/lib/types";
 
+type FilterKey = "all" | "classic" | "floral" | "botanical" | "minimal" | "editorial" | "royal" | "cinematic" | "luxury" | "adat";
+
+const FILTERS: { key: FilterKey; label: string }[] = [
+  { key: "all", label: "Semua 75+" },
+  { key: "classic", label: "Classic" },
+  { key: "floral", label: "Floral" },
+  { key: "botanical", label: "Botanical" },
+  { key: "minimal", label: "Minimal" },
+  { key: "editorial", label: "Editorial" },
+  { key: "royal", label: "Royal" },
+  { key: "cinematic", label: "Cinematic" },
+  { key: "luxury", label: "Luxury" },
+  { key: "adat", label: "Adat Nusantara" },
+];
+
 export function TemplateGrid({ templates }: { templates: TemplateMeta[] }) {
-  const [filter, setFilter] = useState<"all" | "free" | "premium">("all");
-  const filtered = useMemo(() => templates.filter((t) => filter === "all" || t.tier === filter), [filter, templates]);
+  const [filter, setFilter] = useState<FilterKey>("all");
+  const filtered = useMemo(
+    () => filter === "all" ? templates : templates.filter((t) => t.layout === filter),
+    [filter, templates]
+  );
+
   return (
     <section id="template" className="section">
       <div className="section-head">
-        <span className="eyebrow">40 template siap preview</span>
-        <h2>Standar tetap cantik, premium dibuat jauh lebih menggoda.</h2>
-        <p>Semua template bisa dilihat tanpa login. Premium tetap bisa dipreview, tapi untuk publish wajib unlock.</p>
+        <span className="eyebrow">75+ template ultra premium gratis</span>
+        <h2>Pilih layout yang sesuai selera — semuanya eksklusif tanpa batas.</h2>
+        <p>9 layout berbeda, 5 tema adat Nusantara, scroll animations, tanpa watermark.</p>
       </div>
       <div className="filter-tabs" role="tablist" aria-label="Filter template">
-        <button onClick={() => setFilter("all")} className={filter === "all" ? "active" : ""}>Semua 40</button>
-        <button onClick={() => setFilter("free")} className={filter === "free" ? "active" : ""}>20 Gratis</button>
-        <button onClick={() => setFilter("premium")} className={filter === "premium" ? "active" : ""}>20 Premium</button>
+        {FILTERS.map((f) => (
+          <button
+            key={f.key}
+            onClick={() => setFilter(f.key)}
+            className={filter === f.key ? "active" : ""}
+            role="tab"
+            aria-selected={filter === f.key}
+          >
+            {f.label}
+          </button>
+        ))}
       </div>
       <div className="template-grid">
         {filtered.map((template) => <TemplateCard key={template.slug} template={template} />)}

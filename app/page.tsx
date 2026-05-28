@@ -2,52 +2,63 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TemplateGrid } from "@/components/TemplateGrid";
 import { templates } from "@/lib/templates";
-import { formatRupiah } from "@/lib/format";
 
 export default function HomePage() {
-  const premiumPrice = Number(process.env.PREMIUM_PRICE || 299000);
   return (
     <main>
       <SiteHeader />
       <section className="hero-section">
         <div className="hero-copy">
           <span className="eyebrow">Nikah Kilat</span>
-          <h1>Website undangan pernikahan online yang cepat, modern, dan terlihat mahal.</h1>
-          <p>20 template gratis tetap profesional. 20 template premium dibuat ultra exclusive dengan visual cinematic, no watermark, dan alur pembayaran otomatis via iPaymu.</p>
+          <h1>Undangan pernikahan online ultra premium — 100% gratis.</h1>
+          <p>75+ template eksklusif dengan animasi cinematic, scroll reveal, tema adat Nusantara, dan tanpa watermark. Buat, publish, dan share dalam hitungan menit. Tanpa bayar sepeser pun.</p>
           <div className="hero-actions">
-            <Link href="#template" className="button gold">Lihat 40 template</Link>
+            <Link href="#template" className="button gold">Lihat 75+ template</Link>
             <Link href="/register" className="button ghost">Mulai buat undangan</Link>
           </div>
           <div className="stat-row">
-            <div><strong>40</strong><span>template</span></div>
-            <div><strong>8</strong><span>foto maksimal</span></div>
-            <div><strong>30 hari</strong><span>masa aktif</span></div>
+            <div><strong>75+</strong><span>template</span></div>
+            <div><strong>9</strong><span>layout unik</span></div>
+            <div><strong>5</strong><span>tema adat</span></div>
+            <div><strong>100%</strong><span>gratis</span></div>
           </div>
         </div>
         <div className="hero-showcase">
-          <div className="luxury-phone floating-a"><span>Premium</span><h2>A &amp; R</h2><p>Ultra Exclusive</p></div>
-          <div className="luxury-phone small floating-b"><span>Gratis</span><h2>N &amp; D</h2><p>Profesional</p></div>
+          <div className="luxury-phone floating-a"><span>Ultra Premium</span><h2>A &amp; R</h2><p>Cinematic</p></div>
+          <div className="luxury-phone small floating-b"><span>Adat Jawa</span><h2>N &amp; D</h2><p>Batik Kawung</p></div>
           <div className="gold-ring" />
         </div>
       </section>
 
       <section className="section difference-section">
         <div className="section-head">
-          <span className="eyebrow">Perbedaan signifikan</span>
-          <h2>Standar tetap bagus. Premium dibuat agar terasa beda kelas.</h2>
+          <span className="eyebrow">Semua fitur premium — gratis</span>
+          <h2>Yang biasanya berbayar di platform lain, di sini gratis tanpa syarat.</h2>
         </div>
-        <div className="comparison-grid">
-          <div className="plan-card free-plan">
-            <span className="badge badge-free">Gratis</span>
-            <h3>Standar Profesional</h3>
-            <p>Template cantik, mobile-first, RSVP, countdown, galeri, backsound, dan animasi loading.</p>
-            <ul><li>20 template standar</li><li>Watermark Nikah Kilat</li><li>Galeri maksimal 8 foto</li><li>Masa aktif 30 hari</li></ul>
+        <div className="features-showcase">
+          <div className="feature-box">
+            <strong>9 Layout Berbeda</strong>
+            <p>Classic, Floral, Botanical, Minimal, Editorial, Royal, Cinematic, Luxury, dan Adat Nusantara.</p>
           </div>
-          <div className="plan-card premium-plan" id="harga">
-            <span className="badge badge-premium">Premium Ultra Exclusive</span>
-            <h3>{formatRupiah(premiumPrice)}</h3>
-            <p>Visual lebih mewah, palette berbeda per template, no watermark, prioritas desain, dan opsi custom manual via admin.</p>
-            <ul><li>20 template premium ultra</li><li>No watermark</li><li>Animasi cinematic / royal</li><li>Unlock otomatis iPaymu</li><li>Custom manual via WhatsApp admin</li></ul>
+          <div className="feature-box">
+            <strong>Scroll Reveal Animation</strong>
+            <p>Setiap section muncul dengan animasi smooth saat di-scroll. Parallax feel, cinematic transitions.</p>
+          </div>
+          <div className="feature-box">
+            <strong>5 Tema Adat</strong>
+            <p>Jawa (Batik Kawung), Aceh (Pintoe Aceh), Batak (Gorga), Minang (Rumah Gadang), Lampung (Siger).</p>
+          </div>
+          <div className="feature-box">
+            <strong>Tanpa Watermark</strong>
+            <p>Semua undangan bersih tanpa branding. Terlihat profesional dan personal.</p>
+          </div>
+          <div className="feature-box">
+            <strong>RSVP + Guestbook + QR</strong>
+            <p>Tamu bisa konfirmasi kehadiran, kirim ucapan, dan share undangan via QR code / WhatsApp.</p>
+          </div>
+          <div className="feature-box">
+            <strong>Galeri 8 Foto + Countdown</strong>
+            <p>Upload foto pasangan, auto-compress ke WebP, countdown realtime hari/jam/menit/detik.</p>
           </div>
         </div>
       </section>
@@ -57,10 +68,10 @@ export default function HomePage() {
       <section className="section cta-section">
         <div>
           <span className="eyebrow">Siap publish</span>
-          <h2>Buat undangan, upload foto, bayar kalau premium, lalu share link.</h2>
-          <p>User bisa edit undangan kapan saja dari dashboard selama masa aktif.</p>
+          <h2>Buat undangan dalam 5 menit. Gratis. Tanpa batas.</h2>
+          <p>Pilih template, isi data, upload foto, publish. Link langsung aktif untuk disebar ke tamu.</p>
         </div>
-        <Link href="/register" className="button gold">Daftar sekarang</Link>
+        <Link href="/register" className="button gold">Daftar & buat undangan</Link>
       </section>
     </main>
   );

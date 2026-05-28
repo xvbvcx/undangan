@@ -1,10 +1,7 @@
-export type TemplateTier = "free" | "premium";
+export type TemplateTier = "free";
 
-export type TemplateAnimation = "soft" | "cinematic" | "editorial" | "royal";
+export type TemplateAnimation = "soft" | "cinematic" | "editorial" | "royal" | "slide";
 
-// Distinct visual layout structure. Each maps to its own renderer component
-// in components/renderers/. Adding a new layout = build a new renderer and
-// add the slug here.
 export type TemplateLayout =
   | "classic"
   | "floral"
@@ -13,9 +10,9 @@ export type TemplateLayout =
   | "cinematic"
   | "editorial"
   | "botanical"
-  | "luxury";
+  | "luxury"
+  | "adat";
 
-// Display font bound to a template — controls the hero/heading typography.
 export type TemplateFontFamily =
   | "cormorant"
   | "playfair"
@@ -24,15 +21,14 @@ export type TemplateFontFamily =
   | "bodoni"
   | "dancing";
 
-// Cover gate style. Affects what the user sees before clicking "Buka Undangan".
 export type TemplateCoverStyle =
-  | "minimal"      // simple centered card
-  | "ornament"     // ornament frame + names
-  | "photo"        // full-bleed photo background
-  | "split"        // split column with photo + names
-  | "arch";        // arched window over background
+  | "minimal"
+  | "ornament"
+  | "photo"
+  | "split"
+  | "arch"
+  | "cultural";
 
-// Ornament SVG style placed in corners / dividers of the invitation.
 export type TemplateOrnament =
   | "rose"
   | "leaves"
@@ -40,7 +36,14 @@ export type TemplateOrnament =
   | "deco-frame"
   | "arch-frame"
   | "stars"
-  | "wave";
+  | "wave"
+  | "jawa-batik"
+  | "aceh-arch"
+  | "batak-gorga"
+  | "minang-rumah-gadang"
+  | "lampung-siger";
+
+export type TemplateCulture = "jawa" | "aceh" | "batak" | "minang" | "lampung";
 
 export type TemplateMeta = {
   slug: string;
@@ -57,8 +60,7 @@ export type TemplateMeta = {
   fontFamily: TemplateFontFamily;
   coverStyle: TemplateCoverStyle;
   ornament: TemplateOrnament;
-  // Default backsound URL (relative to /public or absolute https). Admin can
-  // override in the `template_music` table without touching code.
+  culture?: TemplateCulture;
   music: string | null;
 };
 
@@ -90,9 +92,6 @@ export type InvitationData = {
   giftName: string;
   giftQris: string;
   themeColor: string;
-  // Legacy field — kept optional for backward compatibility with rows created
-  // before music management moved into the admin panel. Not exposed in the
-  // builder anymore.
   musicUrl?: string;
 };
 

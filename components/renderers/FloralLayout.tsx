@@ -13,7 +13,7 @@ import type { LayoutProps } from "@/components/renderers/types";
 // frames, soft pastel palette. Geared toward "Sakura Putih", "Senja Garden",
 // and the rest of the floral free templates.
 export function FloralLayout({ invitation, template, data, preview, guestName, guestSlug, musicUrl, opened, onOpen }: LayoutProps) {
-  const premium = template.tier === "premium";
+  const premium = false; // all free now
   const gallery = invitation.gallery_urls ?? [];
   const isBotanical = template.layout === "botanical";
 
@@ -137,7 +137,7 @@ export function FloralLayout({ invitation, template, data, preview, guestName, g
         <LeafOrnament size={120} />
         <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
         <strong className="layout-display">{data.groomNickname || data.groomName} &amp; {data.brideNickname || data.brideName}</strong>
-        {!premium && !preview ? <span className="watermark">Created with Nikah Kilat</span> : null}
+        {null}
       </footer>
     </>
   );

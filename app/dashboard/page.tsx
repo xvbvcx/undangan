@@ -3,9 +3,8 @@ import { redirect } from "next/navigation";
 import { LogoutButton } from "@/components/LogoutButton";
 import { InvitationCardActions } from "@/components/InvitationCardActions";
 import { createClient } from "@/lib/supabase/server";
-import { templates, templatePrice } from "@/lib/templates";
-import { formatRupiah } from "@/lib/format";
-import type { InvitationRecord, OrderRecord } from "@/lib/types";
+import { templates } from "@/lib/templates";
+import type { InvitationRecord } from "@/lib/types";
 
 type DashboardSearchParams = Record<string, string | string[] | undefined>;
 
@@ -29,20 +28,13 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   const list = invitations ?? [];
 
   const invitationIds = list.map((inv) => inv.id);
-  const [{ data: rsvps }, { data: guestbook }, { data: pendingOrders }] = await Promise.all([
+  const [{ data: rsvps }, { data: guestbook }] = await Promise.all([
     invitationIds.length
       ? supabase.from("rsvps").select("invitation_id, attendance, guest_count").in("invitation_id", invitationIds)
       : Promise.resolve({ data: [] as { invitation_id: string; attendance: string; guest_count: number }[] }),
     invitationIds.length
       ? supabase.from("guestbook").select("invitation_id").in("invitation_id", invitationIds)
-      : Promise.resolve({ data: [] as { invitation_id: string }[] }),
-    supabase
-      .from("orders")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("status", "pending")
-      .order("created_at", { ascending: false })
-      .returns<OrderRecord[]>()
+      : Promise.resolve({ data: [] as { invitation_id: string }[] })
   ]);
 
   // Aggregate counts per invitation so we can render quick stats.
@@ -65,8 +57,6 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   const totalViews = list.reduce((sum, inv) => sum + (inv.view_count ?? 0), 0);
 
   const sp = await searchParams;
-  const unlockId = typeof sp.unlock === "string" ? sp.unlock : null;
-  const adminWhatsapp = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || "6281234567890";
 
   return (
     <main className="dashboard-page">
@@ -93,35 +83,14 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         </div>
       </section>
 
-      {pendingOrders && pendingOrders.length > 0 ? (
-        <section className="pending-orders" aria-label="Order menunggu pembayaran">
-          {pendingOrders.map((order) => (
-            <article key={order.id} className="pending-order">
-              <div>
-                <strong>Order menunggu pembayaran</strong>
-                <p className="muted">Reference: {order.reference_id} • {formatRupiah(order.amount)}</p>
-              </div>
-              {order.payment_url ? (
-                <a className="button gold" href={order.payment_url} target="_blank" rel="noopener noreferrer">Lanjutkan bayar</a>
-              ) : null}
-            </article>
-          ))}
-        </section>
-      ) : null}
-
       <section className="dash-grid">
         {list.length ? list.map((inv) => {
           const template = templates.find((t) => t.slug === inv.template_slug);
-          const needsPayment = inv.template_tier === "premium" && inv.payment_status !== "paid";
           const stat = stats.get(inv.id) ?? { rsvp: 0, guests: 0, ucapan: 0 };
-          const isUnlockTarget = unlockId === inv.id;
           return (
-            <article key={inv.id} className={`dash-card ${isUnlockTarget ? "highlight" : ""}`}>
+            <article key={inv.id} className="dash-card">
               <div className="split">
-                <span className={`badge ${inv.template_tier === "premium" ? "badge-premium" : "badge-free"}`}>
-                  {inv.template_tier === "premium" ? "Premium" : "Gratis"}
-                </span>
-                <span className="muted">{inv.payment_status}</span>
+                <span className="badge badge-premium">Ultra Premium</span>
               </div>
               <h2>{inv.data?.groomNickname || inv.data?.groomName || "Pengantin"} &amp; {inv.data?.brideNickname || inv.data?.brideName || "Pasangan"}</h2>
               <p className="muted">Template: {template?.name || inv.template_slug}</p>
@@ -136,33 +105,14 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
                 <span><strong>{stat.ucapan}</strong> ucapan</span>
               </div>
 
-              {needsPayment ? (
-                <div className="unlock-box">
-                  <strong>Unlock Premium Ultra Exclusive</strong>
-                  <p>{formatRupiah(templatePrice())} • no watermark • masa aktif 30 hari.</p>
-                  <form action="/api/payment/ipaymu" method="POST">
-                    <input type="hidden" name="invitationId" value={inv.id} />
-                    <button className="button gold wide">Bayar otomatis iPaymu</button>
-                  </form>
-                  <a
-                    className="button ghost wide"
-                    href={`https://wa.me/${adminWhatsapp}?text=${encodeURIComponent(`Halo admin Nikah Kilat, saya mau custom manual untuk undangan ${inv.slug}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Custom manual via admin
-                  </a>
-                </div>
-              ) : null}
-
               <InvitationCardActions invitation={inv} />
             </article>
           );
         }) : (
           <div className="empty-state">
             <h2>Belum ada undangan.</h2>
-            <p>Pilih template gratis atau premium untuk mulai.</p>
-            <Link href="/" className="button gold">Pilih template</Link>
+            <p>Pilih dari 75+ template ultra premium — 100% gratis.</p>
+            <Link href="/templates-page" className="button gold">Pilih template</Link>
           </div>
         )}
       </section>

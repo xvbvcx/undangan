@@ -2,25 +2,24 @@ import Link from "next/link";
 import type { TemplateMeta } from "@/lib/types";
 import { Ornament } from "@/components/renderers/Ornaments";
 
-// Layout-aware template card preview. The preview frame mimics the actual
-// invitation layout so customers can see at-a-glance which template feels
-// floral, royal, cinematic, etc., without having to open each one.
 export function TemplateCard({ template }: { template: TemplateMeta }) {
-  const isPremium = template.tier === "premium";
+  const cultureLabel = template.culture
+    ? `Adat ${template.culture.charAt(0).toUpperCase()}${template.culture.slice(1)}`
+    : null;
+
   return (
-    <article className={`template-card ${isPremium ? "template-premium" : ""}`}>
+    <article className="template-card template-premium">
       <div className="template-preview" style={{ "--accent": template.accent } as React.CSSProperties}>
         <div className={`phone-frame phone-${template.layout}`}>
           <div className={`mini-cover preview-${template.layout} font-${template.fontFamily}`}>
             <PreviewBody template={template} />
           </div>
         </div>
-        {isPremium ? <span className="lock-glow">Premium · Unlock untuk publish</span> : null}
       </div>
       <div className="template-body">
         <div className="split">
-          <span className={`badge ${isPremium ? "badge-premium" : "badge-free"}`}>
-            {isPremium ? "Premium" : "Gratis"}
+          <span className="badge badge-premium">
+            {cultureLabel ?? "Ultra Premium"}
           </span>
           <span className="muted">{template.category}</span>
         </div>
@@ -40,15 +39,12 @@ export function TemplateCard({ template }: { template: TemplateMeta }) {
   );
 }
 
-// Layout-specific tiny cover content. Each branch keeps the same data ("A & R")
-// but arranges + ornaments it differently to telegraph the template feel.
 function PreviewBody({ template }: { template: TemplateMeta }) {
-  const orn = template.ornament;
   switch (template.layout) {
     case "classic":
       return (
         <>
-          <Ornament kind={orn} size={42} />
+          <Ornament kind={template.ornament} size={42} />
           <span className="mini-pill">Wedding Of</span>
           <h3>A & R</h3>
           <p>Save the date</p>
@@ -98,6 +94,17 @@ function PreviewBody({ template }: { template: TemplateMeta }) {
           <h3>A &amp; R</h3>
           <p style={{ fontStyle: "italic" }}>The Wedding Issue</p>
           <Ornament kind="wave" size={64} />
+        </>
+      );
+    case "adat":
+      return (
+        <>
+          <Ornament kind={template.ornament} size={56} />
+          <span className="mini-pill" style={{ letterSpacing: ".2em", textTransform: "uppercase", fontSize: 9 }}>
+            {template.culture ? `Adat ${template.culture}` : "Adat"}
+          </span>
+          <h3>A &amp; R</h3>
+          <p style={{ color: "var(--invite-accent)" }}>{template.mood}</p>
         </>
       );
     default:

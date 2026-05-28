@@ -30,20 +30,20 @@ export async function POST(request: Request) {
     .maybeSingle();
   if (history) return NextResponse.json({ error: "Slug sudah pernah dipakai. Pilih yang lain." }, { status: 409 });
 
-  const premium = template.tier === "premium";
+  // All templates are now free ultra premium — no payment gates.
   const payload = {
     user_id: user.id,
     slug: parsed.data.slug,
     template_slug: template.slug,
-    template_tier: template.tier,
-    package_type: premium ? "premium" : "free",
-    payment_status: premium ? "pending" : "not_required",
+    template_tier: "free",
+    package_type: "free",
+    payment_status: "not_required",
     status: parsed.data.isPublished ? "published" : "draft",
-    is_published: parsed.data.isPublished && !premium,
+    is_published: parsed.data.isPublished,
     data: parsed.data.data,
     gallery_urls: parsed.data.galleryUrls,
-    music_url: parsed.data.data.musicUrl || null,
-    active_until: addDays(new Date(), 30).toISOString()
+    music_url: null,
+    active_until: addDays(new Date(), 365).toISOString()
   };
 
   const { data: invitation, error } = await supabase
